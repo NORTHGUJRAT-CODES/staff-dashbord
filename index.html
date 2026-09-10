@@ -1,12 +1,56 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>My Website</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Staff Count</title>
 </head>
+
 <body>
+  <h2>Staff Count</h2>
 
-  <h1>Welcome</h1>
-  <p>My website is working!</p>
+  <table border="1">
+    <thead>
+      <tr>
+        <th>Staff name</th>
+        <th>Count</th>
+      </tr>
+    </thead>
+    <tbody id="staffData">
+      <tr>
+        <td colspan="2">Loading...</td>
+      </tr>
+    </tbody>
+  </table>
 
+  <script>
+    const sheetURL =
+      "https://docs.google.com/spreadsheets/d/1-JCKO_pVq6cg67vqTYro7Rp1OJQ8l3RxIoA4NOWzrYE/gviz/tq?tqx=out:csv";
+
+    fetch(sheetURL)
+      .then(response => response.text())
+      .then(data => {
+        const rows = data.trim().split("\n");
+        const table = document.getElementById("staffData");
+
+        table.innerHTML = "";
+
+        rows.slice(1).forEach(row => {
+          const columns = row.split(",");
+
+          if (columns.length >= 2) {
+            table.innerHTML += `
+              <tr>
+                <td>${columns[0]}</td>
+                <td>${columns[1]}</td>
+              </tr>
+            `;
+          }
+        });
+      })
+      .catch(error => {
+        document.getElementById("staffData").innerHTML =
+          "<tr><td colspan='2'>Data load nahi hua</td></tr>";
+      });
+  </script>
 </body>
 </html>
