@@ -2,56 +2,164 @@
 <html>
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Staff Count</title>
+  <title>Madani Staff</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 0;
+      padding: 30px 15px;
+      background: #f2f2f2;
+    }
+
+    .login, .dashboard {
+      max-width: 400px;
+      margin: auto;
+      background: white;
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 4px 15px #bbb;
+    }
+
+    h1 {
+      margin-bottom: 25px;
+    }
+
+    input {
+      width: 90%;
+      padding: 12px;
+      margin: 8px 0;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+
+    button {
+      width: 96%;
+      padding: 12px;
+      margin-top: 10px;
+      border: 0;
+      border-radius: 8px;
+      background: #198754;
+      color: white;
+      font-size: 17px;
+    }
+
+    #error {
+      color: red;
+      margin-top: 10px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    th, td {
+      border: 1px solid #ccc;
+      padding: 12px;
+    }
+
+    th {
+      background: #198754;
+      color: white;
+    }
+  </style>
 </head>
 
 <body>
-  <h2>Staff Count</h2>
 
-  <table border="1">
-    <thead>
-      <tr>
-        <th>Staff name</th>
-        <th>Count</th>
-      </tr>
-    </thead>
-    <tbody id="staffData">
-      <tr>
-        <td colspan="2">Loading...</td>
-      </tr>
-    </tbody>
-  </table>
+  <!-- LOGIN -->
+  <div class="login" id="loginBox">
+    <h1>Madani Login</h1>
 
-  <script>
-    const sheetURL =
-    const sheetURL =
+    <input type="text" id="username" placeholder="ID">
+    <input type="password" id="password" placeholder="Password">
+
+    <button onclick="login()">Login</button>
+
+    <div id="error"></div>
+  </div>
+
+  <!-- DASHBOARD -->
+  <div class="dashboard" id="dashboard" style="display:none;">
+    <h1>Staff Count</h1>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Staff name</th>
+          <th>Count</th>
+        </tr>
+      </thead>
+
+      <tbody id="staffData">
+        <tr>
+          <td colspan="2">Loading...</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+<script>
+
+function login() {
+  const id = document.getElementById("username").value;
+  const pass = document.getElementById("password").value;
+
+  if (id === "Madani" && pass === "12254") {
+    document.getElementById("loginBox").style.display = "none";
+    document.getElementById("dashboard").style.display = "block";
+    loadSheet();
+  } else {
+    document.getElementById("error").innerText =
+      "ID ya Password galat hai";
+  }
+}
+
+function loadSheet() {
+
+  const sheetURL =
   "https://docs.google.com/spreadsheets/d/1-JCKO_pVq6cg67vqTYro7Rp1OJQ8l3RxIoA4NOWzrYE/gviz/tq?tqx=out:csv";
 
-    fetch(sheetURL)
-      .then(response => response.text())
-      .then(data => {
-        const rows = data.trim().split("\n");
-        const table = document.getElementById("staffData");
+  fetch(sheetURL)
+    .then(response => response.text())
+    .then(data => {
 
-        table.innerHTML = "";
+      const rows = data.trim().split("\n");
+      const table = document.getElementById("staffData");
 
-        rows.slice(1).forEach(row => {
-          const columns = row.split(",");
+      table.innerHTML = "";
 
-          if (columns.length >= 2) {
-            table.innerHTML += `
-              <tr>
-                <td>${columns[0]}</td>
-                <td>${columns[1]}</td>
-              </tr>
-            `;
-          }
-        });
-      })
-      .catch(error => {
-        document.getElementById("staffData").innerHTML =
-          "<tr><td colspan='2'>Data load nahi hua</td></tr>";
+      rows.slice(1).forEach(row => {
+
+        const columns = row.split(",");
+
+        if (columns.length >= 2) {
+
+          table.innerHTML += `
+            <tr>
+              <td>${columns[0]}</td>
+              <td>${columns[1]}</td>
+            </tr>
+          `;
+
+        }
+
       });
-  </script>
+
+    })
+    .catch(error => {
+
+      document.getElementById("staffData").innerHTML =
+      "<tr><td colspan='2'>Data load nahi hua</td></tr>";
+
+    });
+}
+
+</script>
+
 </body>
 </html>
