@@ -3,18 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Madani Staff - Telethon Muqabla</title>
+  <title>Modasa Telethon 2026</title>
 
   <style>
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     }
 
     body {
-      background-color: #d6e2d5;
+      background-color: #0d1117;
+      color: #ffffff;
       display: flex;
       justify-content: center;
       align-items: flex-start;
@@ -25,33 +26,40 @@
     .app-container {
       width: 100%;
       max-width: 420px;
-      background: #fbf6ee;
+      background: #161b22;
+      border: 1px solid #30363d;
       border-radius: 20px;
       overflow: hidden;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-      padding-bottom: 25px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      padding: 20px 15px;
     }
 
-    /* LOGIN BOX STYLES */
+    /* LOGIN BOX */
     .login-box {
-      padding: 40px 20px;
+      padding: 30px 10px;
       text-align: center;
     }
 
     .login-box h1 {
-      color: #198754;
+      color: #58a6ff;
       margin-bottom: 25px;
-      font-size: 26px;
+      font-size: 24px;
     }
 
     input {
       width: 100%;
       padding: 14px;
       margin: 8px 0;
-      border: 1px solid #ccc;
+      background: #0d1117;
+      border: 1px solid #30363d;
       border-radius: 10px;
+      color: #fff;
       font-size: 16px;
       outline: none;
+    }
+
+    input:focus {
+      border-color: #58a6ff;
     }
 
     .btn-login {
@@ -60,7 +68,7 @@
       margin-top: 15px;
       border: 0;
       border-radius: 10px;
-      background: #198754;
+      background: #238636;
       color: white;
       font-size: 18px;
       font-weight: bold;
@@ -68,141 +76,191 @@
     }
 
     #error {
-      color: #d9534f;
+      color: #f85149;
       margin-top: 12px;
       font-weight: bold;
     }
 
-    /* HEADER BANNER */
-    .header-banner {
-      background: linear-gradient(135deg, #a2c4c9, #7caeb6);
-      padding: 25px 15px;
+    /* HEADER */
+    .header {
       text-align: center;
-      color: #ffffff;
-      text-shadow: 0 1px 3px rgba(0,0,0,0.2);
-    }
-
-    .header-banner h2 {
-      font-size: 18px;
-      letter-spacing: 2px;
-      opacity: 0.9;
-    }
-
-    .header-banner h1 {
-      font-size: 26px;
-      font-weight: 800;
-      margin: 5px 0;
-    }
-
-    .header-banner p {
-      font-size: 15px;
-      font-weight: 600;
-      opacity: 0.95;
-    }
-
-    /* DASHBOARD CONTENT */
-    .dashboard-content {
-      padding: 15px;
-    }
-
-    /* TOP BADGES / TOOLBAR */
-    .top-bar {
-      display: flex;
-      align-items: center;
-      gap: 8px;
       margin-bottom: 15px;
-      flex-wrap: wrap;
     }
 
-    .date-badge {
-      background: #f0e6d2;
-      color: #665235;
-      padding: 6px 12px;
-      border-radius: 6px;
-      font-size: 13px;
-      font-weight: bold;
-    }
-
-    .filter-btn {
-      background: #4a5d4e;
-      color: white;
-      padding: 6px 12px;
-      border-radius: 6px;
-      font-size: 12px;
-      border: none;
-      display: flex;
-      align-items: center;
-      gap: 5px;
-    }
-
-    .live-badge {
-      background: #ff4d4d;
-      color: white;
-      padding: 4px 10px;
-      border-radius: 20px;
-      font-size: 12px;
-      font-weight: bold;
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-    }
-
-    .live-dot {
-      width: 8px;
-      height: 8px;
-      background: white;
-      border-radius: 50%;
-      display: inline-block;
-    }
-
-    /* CARDS GRID */
-    .cards-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-    }
-
-    .card {
-      background: #f3e9d8;
-      border-radius: 12px;
-      padding: 18px 10px;
-      text-align: center;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      position: relative;
-    }
-
-    .card.rank-1 {
-      background: #ffeac5;
-      border: 1px solid #f2cf8d;
-    }
-
-    .card-icon {
-      font-size: 20px;
+    .header h1 {
+      font-size: 22px;
+      font-weight: 800;
+      color: #58a6ff;
       margin-bottom: 4px;
     }
 
-    .card-title {
+    .header p {
+      font-size: 13px;
+      color: #8b949e;
+    }
+
+    /* EDIT BUTTON (ADMIN ONLY) */
+    .btn-edit-sheet {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      background: #2563eb;
+      color: white;
+      text-align: center;
+      text-decoration: none;
+      font-weight: bold;
+      border-radius: 10px;
+      margin-bottom: 15px;
       font-size: 15px;
-      font-weight: 700;
-      color: #333;
+      box-shadow: 0 4px 10px rgba(37, 99, 235, 0.3);
+    }
+
+    /* FILTER TABS */
+    .filter-tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 15px;
+    }
+
+    .tab {
+      flex: 1;
+      padding: 10px 0;
+      text-align: center;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: bold;
+      background: #21262d;
+      border: 1px solid #30363d;
+      color: #8b949e;
+      cursor: pointer;
+    }
+
+    .tab.active {
+      background: #2e7d32;
+      color: #ffffff;
+      border-color: #2e7d32;
+    }
+
+    /* TOTAL KAARKARDAGI CARD */
+    .total-card {
+      background: #161b22;
+      border: 1px solid #2e7d32;
+      border-radius: 12px;
+      padding: 16px;
+      text-align: center;
+      margin-bottom: 15px;
+    }
+
+    .total-title {
+      font-size: 12px;
+      letter-spacing: 1px;
+      color: #8b949e;
+      font-weight: bold;
       margin-bottom: 6px;
     }
 
-    .card-count {
-      font-size: 18px;
+    .total-amount {
+      font-size: 26px;
       font-weight: 800;
-      color: #b35900;
+      color: #4ed964;
+      margin-bottom: 12px;
+    }
+
+    .total-stats {
+      display: flex;
+      justify-content: space-around;
+      border-top: 1px dashed #30363d;
+      padding-top: 10px;
+      font-size: 13px;
+    }
+
+    .stat-val {
+      font-weight: bold;
+      color: #58a6ff;
+    }
+
+    .stat-val-unit {
+      font-weight: bold;
+      color: #d97706;
+    }
+
+    /* TOP RANK CARD */
+    .top-rank-card {
+      background: #1c1917;
+      border: 2px solid #eab308;
+      border-radius: 15px;
+      padding: 18px 12px;
+      text-align: center;
+      margin-bottom: 15px;
+    }
+
+    .top-rank-title {
+      color: #eab308;
+      font-weight: 800;
+      font-size: 16px;
+      margin-bottom: 6px;
+    }
+
+    .top-rank-name {
+      font-size: 20px;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 10px;
+    }
+
+    .top-rank-badge {
+      display: inline-block;
+      background: #f59e0b;
+      color: #000;
+      font-weight: bold;
+      font-size: 20px;
+      padding: 6px 20px;
+      border-radius: 20px;
+      margin-bottom: 8px;
+    }
+
+    .top-rank-unit {
+      font-size: 13px;
+      color: #8b949e;
+      margin-bottom: 8px;
+    }
+
+    .top-rank-wishes {
+      font-size: 13px;
+      color: #facc15;
+    }
+
+    /* OTHER LIST CARDS */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .card {
+      background: #21262d;
+      border-radius: 10px;
+      padding: 12px;
+      text-align: center;
+      border: 1px solid #30363d;
+    }
+
+    .card-name {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .card-count {
+      font-size: 16px;
+      font-weight: 800;
+      color: #4ed964;
     }
 
     .loading-text {
       text-align: center;
-      padding: 30px;
-      font-size: 16px;
-      color: #666;
+      padding: 20px;
+      color: #8b949e;
     }
   </style>
 </head>
@@ -213,51 +271,68 @@
 
     <!-- LOGIN BOX -->
     <div class="login-box" id="loginBox">
-      <h1>Madani Staff Login</h1>
+      <h1>Login Required</h1>
       <input type="text" id="username" placeholder="ID">
       <input type="password" id="password" placeholder="Password" onkeypress="handleKeyPress(event)">
       <button class="btn-login" onclick="login()">Login</button>
       <div id="error"></div>
     </div>
 
-
     <!-- DASHBOARD -->
     <div id="dashboard" style="display:none;">
 
-      <!-- Header Banner -->
-      <div class="header-banner">
-        <h2>TELETHON</h2>
-        <h1>MUQABLA</h1>
-        <p>Madrasa tul Madina Modasa</p>
+      <!-- HEADER -->
+      <div class="header">
+        <h1>Modasa Telethon 2026</h1>
+        <p>Automatic Ranking Based on Google Sheet</p>
       </div>
 
-      <!-- Dashboard Content -->
-      <div class="dashboard-content">
+      <!-- EDIT BUTTON (Admin ID se login karne par hi dikhega) -->
+      <a href="https://docs.google.com/spreadsheets/d/1-JCKO_pVq6cg67vqTYro7Rp1OJQ8l3RxIoA4NOWzrYE/edit" 
+         target="_blank" 
+         class="btn-edit-sheet" 
+         id="editBtn" 
+         style="display: none;">
+        ✏️ Edit Data in Google Sheet
+      </a>
 
-        <!-- Top Badges -->
-        <div class="top-bar">
-          <span class="date-badge" id="currentDate">2026-09-11</span>
-          <button class="filter-btn">👤 Tamam Staff</button>
-          <span class="live-badge"><span class="live-dot"></span> Live</span>
+      <!-- FILTER TABS -->
+      <div class="filter-tabs">
+        <div class="tab active">ALL</div>
+        <div class="tab">SHORT TIME</div>
+        <div class="tab">FULL TIME</div>
+        <div class="tab">DP</div>
+      </div>
+
+      <!-- TOTAL KAARKARDAGI CARD -->
+      <div class="total-card">
+        <div class="total-title">TOTAL KAARKARDAGI (ALL)</div>
+        <div class="total-amount" id="totalAmount">₹0</div>
+        <div class="total-stats">
+          <span>👥 Total Staff: <span class="stat-val" id="totalStaffCount">0</span></span>
+          <span>📦 Total Units: <span class="stat-val-unit" id="totalUnits">0.00</span></span>
         </div>
+      </div>
 
-        <!-- Cards Container -->
-        <div class="cards-grid" id="staffCards">
-          <div class="loading-text" style="grid-column: span 2;">Data load ho raha hai...</div>
-        </div>
+      <!-- TOP RANK CARD (#1 Ranker) -->
+      <div class="top-rank-card" id="topRankCard" style="display: none;">
+        <div class="top-rank-title">👑 #1 TOP RANK</div>
+        <div class="top-rank-name" id="topName">-</div>
+        <div class="top-rank-badge" id="topAmount">₹0</div>
+        <div class="top-rank-unit">Unit: <span id="topUnit">0</span></div>
+        <div class="top-rank-wishes">🎉 Aap ko bohot bohot mubarakbaad! 🎉</div>
+      </div>
 
+      <!-- REST OF THE CARDS -->
+      <div class="cards-grid" id="staffCards">
+        <div class="loading-text" style="grid-column: span 2;">Data load ho raha hai...</div>
       </div>
 
     </div>
 
   </div>
 
-
   <script>
-    // Set Current Date automatically
-    const today = new Date().toISOString().split('T')[0];
-    document.getElementById("currentDate").innerText = today;
-
     function handleKeyPress(event) {
       if (event.key === "Enter") {
         login();
@@ -268,16 +343,25 @@
       const id = document.getElementById("username").value.trim();
       const pass = document.getElementById("password").value.trim();
 
-      if (id === "Madani" && pass === "12254") {
+      // Admin Login Check
+      if (id === "admin" && pass === "2526") {
         document.getElementById("loginBox").style.display = "none";
         document.getElementById("dashboard").style.display = "block";
+        document.getElementById("editBtn").style.display = "block"; // Edit button show hoga
         loadSheet();
-      } else {
+      } 
+      // Normal User Login Check
+      else if (id === "Madani" && pass === "12254") {
+        document.getElementById("loginBox").style.display = "none";
+        document.getElementById("dashboard").style.display = "block";
+        document.getElementById("editBtn").style.display = "none"; // Edit button hide rahega
+        loadSheet();
+      } 
+      else {
         document.getElementById("error").innerText = "ID ya Password galat hai";
       }
     }
 
-    // CSV Row Parser
     function parseCSVRow(row) {
       const matches = row.match(/(".*?"|[^",\s]+)(?=\s*,|\s*$)/g);
       if (!matches) return row.split(",");
@@ -297,48 +381,51 @@
           const container = document.getElementById("staffCards");
           container.innerHTML = "";
 
-          let rankIndex = 0;
+          let list = [];
+          let grandTotal = 0;
 
           rows.slice(1).forEach((row) => {
             const columns = parseCSVRow(row);
-
             if (columns.length >= 2 && columns[0].trim() !== "") {
-              rankIndex++;
-
-              let icon = "";
-              let rankClass = "";
-
-              if (rankIndex === 1) {
-                icon = "🏆";
-                rankClass = "rank-1";
-              } else if (rankIndex === 2) {
-                icon = "🥈";
-              } else if (rankIndex === 3) {
-                icon = "🥉";
-              } else {
-                icon = `${rankIndex}.`;
-              }
-
               const name = columns[0];
-              const count = columns[1];
-
-              container.innerHTML += `
-                <div class="card ${rankClass}">
-                  <div class="card-icon">${icon}</div>
-                  <div class="card-title">${name}</div>
-                  <div class="card-count">${count}</div>
-                </div>
-              `;
+              const rawVal = columns[1].replace(/[^0-9.]/g, '');
+              const numVal = parseFloat(rawVal) || 0;
+              
+              grandTotal += numVal;
+              list.push({ name: name, count: columns[1], num: numVal });
             }
           });
 
-          if (container.innerHTML === "") {
-            container.innerHTML = "<div class='loading-text' style='grid-column: span 2;'>Koi data nahi mila</div>";
+          // Set Totals
+          document.getElementById("totalAmount").innerText = "₹" + grandTotal.toLocaleString('en-IN');
+          document.getElementById("totalStaffCount").innerText = list.length;
+          document.getElementById("totalUnits").innerText = (grandTotal / 7000).toFixed(2);
+
+          if (list.length > 0) {
+            // Rank #1 Setup
+            const topOne = list[0];
+            document.getElementById("topRankCard").style.display = "block";
+            document.getElementById("topName").innerText = topOne.name;
+            document.getElementById("topAmount").innerText = "₹" + topOne.num.toLocaleString('en-IN');
+            document.getElementById("topUnit").innerText = (topOne.num / 7000).toFixed(2);
+
+            // Remaining Staff Cards
+            list.slice(1).forEach((item, idx) => {
+              container.innerHTML += `
+                <div class="card">
+                  <div style="font-size:11px; color:#8b949e;">#${idx + 2}</div>
+                  <div class="card-name">${item.name}</div>
+                  <div class="card-count">${item.count}</div>
+                </div>
+              `;
+            });
+          } else {
+            container.innerHTML = "<div class='loading-text' style='grid-column: span 2;'>Data nahi mil paya</div>";
           }
         })
         .catch(error => {
           document.getElementById("staffCards").innerHTML =
-            "<div class='loading-text' style='grid-column: span 2; color:red;'>Data load nahi hua</div>";
+            "<div class='loading-text' style='grid-column: span 2; color:#f85149;'>Data load nahi ho paya</div>";
         });
     }
   </script>
