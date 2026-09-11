@@ -1,433 +1,247 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Modasa Telethon 2026</title>
+  <title>Madani Staff</title>
 
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    }
-
     body {
-      background-color: #0d1117;
-      color: #ffffff;
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-      min-height: 100vh;
-      padding: 15px;
-    }
-
-    .app-container {
-      width: 100%;
-      max-width: 420px;
-      background: #161b22;
-      border: 1px solid #30363d;
-      border-radius: 20px;
-      overflow: hidden;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-      padding: 20px 15px;
-    }
-
-    /* LOGIN BOX */
-    .login-box {
-      padding: 30px 10px;
+      font-family: Arial, sans-serif;
       text-align: center;
+      margin: 0;
+      padding: 30px 15px;
+      background: #f2f2f2;
     }
 
-    .login-box h1 {
-      color: #58a6ff;
+    .login, .dashboard {
+      max-width: 400px;
+      margin: auto;
+      background: white;
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 4px 15px #bbb;
+    }
+
+    h1 {
       margin-bottom: 25px;
-      font-size: 24px;
     }
 
     input {
-      width: 100%;
-      padding: 14px;
+      width: 90%;
+      padding: 12px;
       margin: 8px 0;
-      background: #0d1117;
-      border: 1px solid #30363d;
-      border-radius: 10px;
-      color: #fff;
+      border: 1px solid #ccc;
+      border-radius: 8px;
       font-size: 16px;
-      outline: none;
     }
 
-    input:focus {
-      border-color: #58a6ff;
-    }
-
-    .btn-login {
-      width: 100%;
-      padding: 14px;
-      margin-top: 15px;
+    button {
+      width: 96%;
+      padding: 12px;
+      margin-top: 10px;
       border: 0;
-      border-radius: 10px;
-      background: #238636;
+      border-radius: 8px;
+      background: #198754;
       color: white;
-      font-size: 18px;
-      font-weight: bold;
-      cursor: pointer;
+      font-size: 17px;
     }
 
     #error {
-      color: #f85149;
-      margin-top: 12px;
-      font-weight: bold;
+      color: red;
+      margin-top: 10px;
     }
 
-    /* HEADER */
-    .header {
-      text-align: center;
-      margin-bottom: 15px;
-    }
-
-    .header h1 {
-      font-size: 22px;
-      font-weight: 800;
-      color: #58a6ff;
-      margin-bottom: 4px;
-    }
-
-    .header p {
-      font-size: 13px;
-      color: #8b949e;
-    }
-
-    /* EDIT BUTTON (ADMIN ONLY) */
-    .btn-edit-sheet {
-      display: block;
+    table {
       width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    th, td {
+      border: 1px solid #ccc;
       padding: 12px;
-      background: #2563eb;
+    }
+
+    th {
+      background: #198754;
       color: white;
-      text-align: center;
-      text-decoration: none;
-      font-weight: bold;
-      border-radius: 10px;
-      margin-bottom: 15px;
-      font-size: 15px;
-      box-shadow: 0 4px 10px rgba(37, 99, 235, 0.3);
     }
 
-    /* FILTER TABS */
-    .filter-tabs {
-      display: flex;
-      gap: 8px;
-      margin-bottom: 15px;
-    }
-
-    .tab {
-      flex: 1;
-      padding: 10px 0;
-      text-align: center;
-      border-radius: 8px;
-      font-size: 12px;
-      font-weight: bold;
-      background: #21262d;
-      border: 1px solid #30363d;
-      color: #8b949e;
-      cursor: pointer;
-    }
-
-    .tab.active {
-      background: #2e7d32;
-      color: #ffffff;
-      border-color: #2e7d32;
-    }
-
-    /* TOTAL KAARKARDAGI CARD */
-    .total-card {
-      background: #161b22;
-      border: 1px solid #2e7d32;
-      border-radius: 12px;
-      padding: 16px;
-      text-align: center;
-      margin-bottom: 15px;
-    }
-
-    .total-title {
-      font-size: 12px;
-      letter-spacing: 1px;
-      color: #8b949e;
-      font-weight: bold;
-      margin-bottom: 6px;
-    }
-
-    .total-amount {
-      font-size: 26px;
-      font-weight: 800;
-      color: #4ed964;
-      margin-bottom: 12px;
-    }
-
-    .total-stats {
-      display: flex;
-      justify-content: space-around;
-      border-top: 1px dashed #30363d;
-      padding-top: 10px;
-      font-size: 13px;
-    }
-
-    .stat-val {
-      font-weight: bold;
-      color: #58a6ff;
-    }
-
-    .stat-val-unit {
-      font-weight: bold;
-      color: #d97706;
-    }
-
-    /* TOP RANK CARD */
-    .top-rank-card {
-      background: #1c1917;
-      border: 2px solid #eab308;
-      border-radius: 15px;
-      padding: 18px 12px;
-      text-align: center;
-      margin-bottom: 15px;
-    }
-
-    .top-rank-title {
-      color: #eab308;
-      font-weight: 800;
-      font-size: 16px;
-      margin-bottom: 6px;
-    }
-
-    .top-rank-name {
-      font-size: 20px;
-      font-weight: 800;
-      color: #ffffff;
-      margin-bottom: 10px;
-    }
-
-    .top-rank-badge {
+    .admin-badge {
       display: inline-block;
-      background: #f59e0b;
-      color: #000;
-      font-weight: bold;
-      font-size: 20px;
-      padding: 6px 20px;
-      border-radius: 20px;
-      margin-bottom: 8px;
-    }
-
-    .top-rank-unit {
-      font-size: 13px;
-      color: #8b949e;
-      margin-bottom: 8px;
-    }
-
-    .top-rank-wishes {
-      font-size: 13px;
-      color: #facc15;
-    }
-
-    /* OTHER LIST CARDS */
-    .cards-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-    }
-
-    .card {
-      background: #21262d;
-      border-radius: 10px;
-      padding: 12px;
-      text-align: center;
-      border: 1px solid #30363d;
-    }
-
-    .card-name {
+      background: #dc3545;
+      color: white;
+      padding: 4px 10px;
+      border-radius: 5px;
       font-size: 14px;
-      font-weight: 600;
-      margin-bottom: 4px;
-    }
-
-    .card-count {
-      font-size: 16px;
-      font-weight: 800;
-      color: #4ed964;
-    }
-
-    .loading-text {
-      text-align: center;
-      padding: 20px;
-      color: #8b949e;
+      margin-bottom: 15px;
     }
   </style>
 </head>
 
 <body>
 
-  <div class="app-container">
+  <!-- LOGIN -->
+  <div class="login" id="loginBox">
 
-    <!-- LOGIN BOX -->
-    <div class="login-box" id="loginBox">
-      <h1>Login Required</h1>
-      <input type="text" id="username" placeholder="ID">
-      <input type="password" id="password" placeholder="Password" onkeypress="handleKeyPress(event)">
-      <button class="btn-login" onclick="login()">Login</button>
-      <div id="error"></div>
-    </div>
+    <h1>Login Required</h1>
 
-    <!-- DASHBOARD -->
-    <div id="dashboard" style="display:none;">
+    <input
+      type="text"
+      id="username"
+      placeholder="ID"
+    >
 
-      <!-- HEADER -->
-      <div class="header">
-        <h1>Modasa Telethon 2026</h1>
-        <p>Automatic Ranking Based on Google Sheet</p>
-      </div>
+    <input
+      type="password"
+      id="password"
+      placeholder="Password"
+    >
 
-      <!-- EDIT BUTTON (Admin ID se login karne par hi dikhega) -->
-      <a href="https://docs.google.com/spreadsheets/d/1-JCKO_pVq6cg67vqTYro7Rp1OJQ8l3RxIoA4NOWzrYE/edit" 
-         target="_blank" 
-         class="btn-edit-sheet" 
-         id="editBtn" 
-         style="display: none;">
-        ✏️ Edit Data in Google Sheet
-      </a>
+    <button onclick="login()">Login</button>
 
-      <!-- FILTER TABS -->
-      <div class="filter-tabs">
-        <div class="tab active">ALL</div>
-        <div class="tab">SHORT TIME</div>
-        <div class="tab">FULL TIME</div>
-        <div class="tab">DP</div>
-      </div>
-
-      <!-- TOTAL KAARKARDAGI CARD -->
-      <div class="total-card">
-        <div class="total-title">TOTAL KAARKARDAGI (ALL)</div>
-        <div class="total-amount" id="totalAmount">₹0</div>
-        <div class="total-stats">
-          <span>👥 Total Staff: <span class="stat-val" id="totalStaffCount">0</span></span>
-          <span>📦 Total Units: <span class="stat-val-unit" id="totalUnits">0.00</span></span>
-        </div>
-      </div>
-
-      <!-- TOP RANK CARD (#1 Ranker) -->
-      <div class="top-rank-card" id="topRankCard" style="display: none;">
-        <div class="top-rank-title">👑 #1 TOP RANK</div>
-        <div class="top-rank-name" id="topName">-</div>
-        <div class="top-rank-badge" id="topAmount">₹0</div>
-        <div class="top-rank-unit">Unit: <span id="topUnit">0</span></div>
-        <div class="top-rank-wishes">🎉 Aap ko bohot bohot mubarakbaad! 🎉</div>
-      </div>
-
-      <!-- REST OF THE CARDS -->
-      <div class="cards-grid" id="staffCards">
-        <div class="loading-text" style="grid-column: span 2;">Data load ho raha hai...</div>
-      </div>
-
-    </div>
+    <div id="error"></div>
 
   </div>
 
+
+  <!-- DASHBOARD -->
+  <div
+    class="dashboard"
+    id="dashboard"
+    style="display:none;"
+  >
+
+    <div id="roleTag"></div>
+
+    <h1>Staff Count</h1>
+
+    <table>
+
+      <thead>
+        <tr>
+          <th>Staff name</th>
+          <th>Count</th>
+        </tr>
+      </thead>
+
+      <tbody id="staffData">
+
+        <tr>
+          <td colspan="2">
+            Loading...
+          </td>
+        </tr>
+
+      </tbody>
+
+    </table>
+
+  </div>
+
+
   <script>
-    function handleKeyPress(event) {
-      if (event.key === "Enter") {
-        login();
-      }
-    }
 
     function login() {
-      const id = document.getElementById("username").value.trim();
-      const pass = document.getElementById("password").value.trim();
 
-      // Admin Login Check
-      if (id === "admin" && pass === "2526") {
+      const id =
+        document.getElementById("username").value.trim();
+
+      const pass =
+        document.getElementById("password").value.trim();
+
+      const roleTag = 
+        document.getElementById("roleTag");
+
+      // ADMIN LOGIN
+      if (id === "Admin" && pass === "admin123") {
+
         document.getElementById("loginBox").style.display = "none";
         document.getElementById("dashboard").style.display = "block";
-        document.getElementById("editBtn").style.display = "block"; // Edit button show hoga
+        roleTag.innerHTML = "<span class='admin-badge'>Admin Access</span>";
         loadSheet();
+
       } 
-      // Normal User Login Check
+      // STAFF LOGIN
       else if (id === "Madani" && pass === "12254") {
+
         document.getElementById("loginBox").style.display = "none";
         document.getElementById("dashboard").style.display = "block";
-        document.getElementById("editBtn").style.display = "none"; // Edit button hide rahega
+        roleTag.innerHTML = "";
         loadSheet();
+
       } 
       else {
+
         document.getElementById("error").innerText = "ID ya Password galat hai";
+
       }
+
     }
 
-    function parseCSVRow(row) {
-      const matches = row.match(/(".*?"|[^",\s]+)(?=\s*,|\s*$)/g);
-      if (!matches) return row.split(",");
-      return matches.map(val => val.replace(/^"|"$/g, '').trim());
-    }
 
     function loadSheet() {
-      const sheetURL = "https://docs.google.com/spreadsheets/d/1-JCKO_pVq6cg67vqTYro7Rp1OJQ8l3RxIoA4NOWzrYE/gviz/tq?tqx=out:csv";
+
+      const sheetURL =
+        "https://docs.google.com/spreadsheets/d/1-JCKO_pVq6cg67vqTYro7Rp1OJQ8l3RxIoA4NOWzrYE/gviz/tq?tqx=out:csv";
+
 
       fetch(sheetURL)
-        .then(response => {
-          if (!response.ok) throw new Error("Network error");
-          return response.text();
-        })
+
+        .then(response => response.text())
+
         .then(data => {
-          const rows = data.trim().split("\n");
-          const container = document.getElementById("staffCards");
-          container.innerHTML = "";
 
-          let list = [];
-          let grandTotal = 0;
+          const rows =
+            data.trim().split("\n");
 
-          rows.slice(1).forEach((row) => {
-            const columns = parseCSVRow(row);
-            if (columns.length >= 2 && columns[0].trim() !== "") {
-              const name = columns[0];
-              const rawVal = columns[1].replace(/[^0-9.]/g, '');
-              const numVal = parseFloat(rawVal) || 0;
-              
-              grandTotal += numVal;
-              list.push({ name: name, count: columns[1], num: numVal });
+          const table =
+            document.getElementById("staffData");
+
+          table.innerHTML = "";
+
+
+          rows.slice(1).forEach(row => {
+
+            const columns =
+              row.split(",");
+
+
+            if (columns.length >= 2) {
+
+              table.innerHTML += `
+
+                <tr>
+
+                  <td>
+                    ${columns[0]}
+                  </td>
+
+                  <td>
+                    ${columns[1]}
+                  </td>
+
+                </tr>
+
+              `;
+
             }
+
           });
 
-          // Set Totals
-          document.getElementById("totalAmount").innerText = "₹" + grandTotal.toLocaleString('en-IN');
-          document.getElementById("totalStaffCount").innerText = list.length;
-          document.getElementById("totalUnits").innerText = (grandTotal / 7000).toFixed(2);
-
-          if (list.length > 0) {
-            // Rank #1 Setup
-            const topOne = list[0];
-            document.getElementById("topRankCard").style.display = "block";
-            document.getElementById("topName").innerText = topOne.name;
-            document.getElementById("topAmount").innerText = "₹" + topOne.num.toLocaleString('en-IN');
-            document.getElementById("topUnit").innerText = (topOne.num / 7000).toFixed(2);
-
-            // Remaining Staff Cards
-            list.slice(1).forEach((item, idx) => {
-              container.innerHTML += `
-                <div class="card">
-                  <div style="font-size:11px; color:#8b949e;">#${idx + 2}</div>
-                  <div class="card-name">${item.name}</div>
-                  <div class="card-count">${item.count}</div>
-                </div>
-              `;
-            });
-          } else {
-            container.innerHTML = "<div class='loading-text' style='grid-column: span 2;'>Data nahi mil paya</div>";
-          }
         })
+
+
         .catch(error => {
-          document.getElementById("staffCards").innerHTML =
-            "<div class='loading-text' style='grid-column: span 2; color:#f85149;'>Data load nahi ho paya</div>";
+
+          document.getElementById("staffData").innerHTML =
+
+            "<tr><td colspan='2'>Data load nahi hua</td></tr>";
+
         });
+
     }
+
   </script>
 
 </body>
