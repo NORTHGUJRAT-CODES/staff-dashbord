@@ -255,8 +255,8 @@
 
     <!-- LOGIN BOX -->
     <div class="login-box" id="loginBox">
-      <h1>Madani Staff Login</h1>
-      <input type="text" id="username" placeholder="ID">
+      <h1>Madani Portal Login</h1>
+      <input type="text" id="username" placeholder="ID (Manager / Staff)">
       <input type="password" id="password" placeholder="Password" onkeypress="handleKeyPress(event)">
       <button class="btn-login" onclick="login()">Login</button>
       <div id="error"></div>
@@ -275,12 +275,12 @@
       <!-- Dashboard Content -->
       <div class="dashboard-content">
 
-        <!-- Google Sheet Quick Access Button -->
-        <div class="edit-sheet-box">
+        <!-- Manager Only Edit Button Section -->
+        <div class="edit-sheet-box" id="managerEditSection" style="display: none;">
           <a id="openSheetBtn" class="btn-sheet" href="https://docs.google.com/spreadsheets/d/1-JCKO_pVq6cg67vqTYro7Rp1OJQ8l3RxIoA4NOWzrYE/edit" target="_blank">
             ✏️ Open Google Sheet to Edit Data
           </a>
-          <div class="success-msg">Dashboard unlocked successfully!</div>
+          <div class="success-msg">Manager Dashboard Unlocked!</div>
         </div>
 
         <!-- Top Badges / Branch Selector -->
@@ -337,9 +337,20 @@
       const id = document.getElementById("username").value.trim();
       const pass = document.getElementById("password").value.trim();
 
-      if (id === "Madani" && pass === "12254") {
+      const isManager = (id.toLowerCase() === "manager" && pass === "12254");
+      const isStaff = (id.toLowerCase() === "staff" && pass === "12254");
+
+      if (isManager || isStaff) {
         document.getElementById("loginBox").style.display = "none";
         document.getElementById("dashboard").style.display = "block";
+
+        // Agar Manager login hua toh Sheet Button dikhao, warna hide rakho
+        if (isManager) {
+          document.getElementById("managerEditSection").style.display = "block";
+        } else {
+          document.getElementById("managerEditSection").style.display = "none";
+        }
+
         loadSheet("Sheet1");
 
         if (refreshTimer) clearInterval(refreshTimer);
@@ -359,7 +370,7 @@
       
       document.getElementById("branchTitle").innerText = selectedText;
 
-      // Update Edit Button link to open the selected tab sheet
+      // Update Manager link for specific tab
       document.getElementById("openSheetBtn").href = `https://docs.google.com/spreadsheets/d/${sheetID}/edit#gid=${selectedSheet}`;
 
       loadSheet(selectedSheet, true);
