@@ -134,6 +134,7 @@
       outline: none;
       font-weight: bold;
       cursor: pointer;
+      max-width: 220px;
     }
 
     .live-badge {
@@ -222,7 +223,7 @@
     <!-- LOGIN BOX -->
     <div class="login-box" id="loginBox">
       <h1>Madani Staff Login</h1>
-      <input type="text" id="username" placeholder="ID">
+      <input type="text" id="username" placeholder="ID (MadaniStaff / MadaniManager)">
       <input type="password" id="password" placeholder="Password" onkeypress="handleKeyPress(event)">
       <button class="btn-login" onclick="login()">Login</button>
       <div id="error"></div>
@@ -235,7 +236,7 @@
       <div class="header-banner">
         <h2>TELETHON</h2>
         <h1>MUQABLA</h1>
-        <p id="branchTitle">FAIZAN E MADANI MODASA</p>
+        <p id="branchTitle"></p>
       </div>
 
       <!-- Dashboard Content -->
@@ -246,16 +247,7 @@
           <span class="date-badge" id="currentDate"></span>
           
           <select class="select-branch" id="branchSelect" onchange="changeBranch()">
-            <option value="Sheet1">FAIZAN E MADANI MODASA</option>
-            <option value="Sheet2">FAIZANE SHAHE AALAM BAPUNAGAR</option>
-            <option value="Sheet3">FAIZANE MADINA HIMMATNAGAR</option>
-            <option value="Sheet4">FAIZANE DARIYAI DULHA BALASINOR</option>
-            <option value="Sheet5">FAIZANE TAJDARE BAGHDAD BHEMAL</option>
-            <option value="Sheet6">MADINA MASJID JAMALPUR</option>
-            <option value="Sheet7">FAIZANE IMAM AHMAD RAZA IDER</option>
-            <option value="Sheet8">FAIZANE MADINA MAHESANA</option>
-            <option value="Sheet9">FAIZANE GHAZI QUTBUDDIN HIMMATNAGAR</option>
-            <option value="Sheet10">📊 TOTAL KARKARDGI (ALL BRANCHES)</option>
+            <!-- Options dynamically loaded based on Staff or Manager Login -->
           </select>
 
           <span class="live-badge"><span class="live-dot"></span> Live</span>
@@ -282,6 +274,36 @@
     document.getElementById("currentDate").innerText = today;
 
     let refreshTimer = null;
+    let currentUser = null;
+
+    const commonSheetID = "1-JCKO_pVq6cg67vqTYro7Rp1OJQ8l3RxIoA4NOWzrYE";
+
+    // Staff & Manager Logins Configuration
+    const usersConfig = {
+      // 1. Staff Login: Sirf Apni Branch Dikhayi Degi
+      "Madani": {
+        pass: "12254",
+        sheets: [
+          { sheetName: "Sheet1", title: "FAIZAN E MADANI MODASA", sheetId: commonSheetID }
+        ]
+      },
+      // 2. Manager Login: Poori Google Sheet (Sabhi Branches + Total) Dikhayi Degi
+      "Nazim": {
+        pass: "1226",
+        sheets: [
+          { sheetName: "Sheet1", title: "FAIZAN E MADANI MODASA", sheetId: commonSheetID },
+          { sheetName: "Sheet2", title: "FAIZANE SHAHE AALAM BAPUNAGAR", sheetId: commonSheetID },
+          { sheetName: "Sheet3", title: "FAIZANE MADINA HIMMATNAGAR", sheetId: commonSheetID },
+          { sheetName: "Sheet4", title: "FAIZANE DARIYAI DULHA BALASINOR", sheetId: commonSheetID },
+          { sheetName: "Sheet5", title: "FAIZANE TAJDARE BAGHDAD BHEMAL", sheetId: commonSheetID },
+          { sheetName: "Sheet6", title: "MADINA MASJID JAMALPUR", sheetId: commonSheetID },
+          { sheetName: "Sheet7", title: "FAIZANE IMAM AHMAD RAZA IDER", sheetId: commonSheetID },
+          { sheetName: "Sheet8", title: "FAIZANE MADINA MAHESANA", sheetId: commonSheetID },
+          { sheetName: "Sheet9", title: "FAIZANE GHAZI QUTBUDDIN HIMMATNAGAR", sheetId: commonSheetID },
+          { sheetName: "Sheet10", title: "📊 TOTAL KARKARDGI (ALL BRANCHES)", sheetId: commonSheetID }
+        ]
+      }
+    };
 
     function handleKeyPress(event) {
       if (event.key === "Enter") {
@@ -293,31 +315,46 @@
       const id = document.getElementById("username").value.trim();
       const pass = document.getElementById("password").value.trim();
 
-      if (id === "Madani" && pass === "12254") {
+      if (usersConfig[id] && usersConfig[id].pass === pass) {
+        currentUser = usersConfig[id];
         document.getElementById("loginBox").style.display = "none";
         document.getElementById("dashboard").style.display = "block";
-        loadSheet("Sheet1");
+
+        const select = document.getElementById("branchSelect");
+        select.innerHTML = "";
+        currentUser.sheets.forEach(item => {
+          const option = document.createElement("option");
+          option.value = item.sheetName;
+          option.setAttribute("data-sheetid", item.sheetId);
+          option.text = item.title;
+          select.appendChild(option);
+        });
+
+        changeBranch();
 
         if (refreshTimer) clearInterval(refreshTimer);
         refreshTimer = setInterval(() => {
-          const selectedSheet = document.getElementById("branchSelect").value;
-          loadSheet(selectedSheet, false);
+          changeBranch(false);
         }, 30000);
       } else {
         document.getElementById("error").innerText = "ID ya Password galat hai";
       }
     }
 
-    function changeBranch() {
+    function changeBranch(showLoading = true) {
       const select = document.getElementById("branchSelect");
-      const selectedSheet = select.value;
-      const selectedText = select.options[select.selectedIndex].text;
+      const selectedOption = select.options[select.selectedIndex];
+      
+      if (!selectedOption) return;
+
+      const selectedSheet = selectedOption.value;
+      const sheetID = selectedOption.getAttribute("data-sheetid");
+      const selectedText = selectedOption.text;
       
       document.getElementById("branchTitle").innerText = selectedText;
-      loadSheet(selectedSheet, true);
+      loadSheet(sheetID, selectedSheet, showLoading);
     }
 
-    // CSV Parser
     function parseCSV(text) {
       const lines = text.trim().split(/\r?\n/);
       return lines.map(line => {
@@ -341,14 +378,13 @@
       });
     }
 
-    function loadSheet(sheetName, showLoading = true) {
+    function loadSheet(sheetID, sheetName, showLoading = true) {
       const container = document.getElementById("staffCards");
 
       if (showLoading) {
         container.innerHTML = "<div class='loading-text' style='grid-column: span 2;'>Data load ho raha hai...</div>";
       }
 
-      const sheetID = "1-JCKO_pVq6cg67vqTYro7Rp1OJQ8l3RxIoA4NOWzrYE";
       const sheetURL = `https://docs.google.com/spreadsheets/d/${sheetID}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(sheetName)}&_=${new Date().getTime()}`;
 
       fetch(sheetURL)
@@ -361,14 +397,12 @@
           let itemsList = [];
           let grandTotalRow = null;
 
-          // Process rows
           rows.slice(1).forEach((columns) => {
             if (columns.length > 0 && columns[0] !== "") {
               const name = columns[0] || "";
               const count = columns[1] || "";
               const unit = columns[2] || "";
 
-              // Total Row ko alag handle karein
               if (name.toUpperCase().includes("TOTAL KARKARDGI") || name.toUpperCase() === "TOTAL") {
                 grandTotalRow = { name, count, unit };
               } else {
@@ -378,16 +412,13 @@
             }
           });
 
-          // Amount/Count ke hisab se High to Low Sort karein
           itemsList.sort((a, b) => b.numValue - a.numValue);
 
           let cardsHTML = "";
           let rankIndex = 0;
 
-          // Render Sorted Cards
           itemsList.forEach((item) => {
             rankIndex++;
-
             let icon = "";
             let rankClass = "";
 
@@ -412,7 +443,6 @@
             `;
           });
 
-          // Agar Grand Total Row hai toh ise sabse neeche Green Card me render karein
           if (grandTotalRow) {
             cardsHTML += `
               <div class="card" style="grid-column: span 2; background: #198754; color: white; margin-top: 10px;">
