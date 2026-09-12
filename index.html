@@ -172,7 +172,7 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      align-items: center;
+      align-items: flex-start;
       position: relative;
     }
 
@@ -248,6 +248,13 @@
           <select class="select-branch" id="branchSelect" onchange="changeBranch()">
             <option value="Sheet1">Madrasa tul Madina Modasa</option>
             <option value="Sheet2">Faizan-e-Shah-e-Alam</option>
+            <option value="Sheet3">Faizan-e-Madina-Himmatnagar</option>
+            <option value="Sheet4">Faizan-e-Dariyaidulha-Balasinor</option>
+            <option value="Sheet5">Faizan-e-Tajdar-e-Bagdad-Bhemal</option>
+            <option value="Sheet6">Madina-Masjid-Jamalpur</option>
+            <option value="Sheet7">Faizan-e-Imam-AhmedRaza-Ider</option>
+            <option value="Sheet8">Faizan-e-Madina-Mehsana</option>
+            <option value="Sheet9">Faizan-e-Ghazi-Qutbuddin-Himmatnagar</option>
           </select>
 
           <span class="live-badge"><span class="live-dot"></span> Live</span>
@@ -266,8 +273,14 @@
 
   <script>
     // Set Current Date
-    const today = new Date().toISOString().split('T')[0];
+    const today = new Date().toLocaleDateString('en-GB', {
+      day: '2-digit',
+      month: 'short',
+      year: 'numeric'
+    });
     document.getElementById("currentDate").innerText = today;
+
+    let refreshTimer = null;
 
     function handleKeyPress(event) {
       if (event.key === "Enter") {
@@ -283,6 +296,13 @@
         document.getElementById("loginBox").style.display = "none";
         document.getElementById("dashboard").style.display = "block";
         loadSheet("Sheet1");
+
+        // Har 30 sec me automatically updated data fetch karega
+        if (refreshTimer) clearInterval(refreshTimer);
+        refreshTimer = setInterval(() => {
+          const selectedSheet = document.getElementById("branchSelect").value;
+          loadSheet(selectedSheet, false);
+        }, 30000);
       } else {
         document.getElementById("error").innerText = "ID ya Password galat hai";
       }
@@ -293,24 +313,41 @@
       const selectedSheet = select.value;
       const selectedText = select.options[select.selectedIndex].text;
       
-      // Update Subtitle
       document.getElementById("branchTitle").innerText = selectedText;
-      
-      // Load Sheet Data
-      loadSheet(selectedSheet);
+      loadSheet(selectedSheet, true);
     }
 
-    // CSV Row Parser
-    function parseCSVRow(row) {
-      const matches = row.match(/(".*?"|[^",\s]+)(?=\s*,|\s*$)/g);
-      if (!matches) return row.split(",");
-      return matches.map(val => val.replace(/^"|"$/g, '').trim());
+    // CSV Parser
+    function parseCSV(text) {
+      const lines = text.trim().split(/\r?\n/);
+      return lines.map(line => {
+        const values = [];
+        let current = '';
+        let inQuotes = false;
+
+        for (let i = 0; i < line.length; i++) {
+          const char = line[i];
+          if (char === '"') {
+            inQuotes = !inQuotes;
+          } else if (char === ',' && !inQuotes) {
+            values.push(current.trim().replace(/^"|"$/g, ''));
+            current = '';
+          } else {
+            current += char;
+          }
+        }
+        values.push(current.trim().replace(/^"|"$/g, ''));
+        return values;
+      });
     }
 
-    function loadSheet(sheetName) {
-      document.getElementById("staffCards").innerHTML = "<div class='loading-text' style='grid-column: span 2;'>Data load ho raha hai...</div>";
+    function loadSheet(sheetName, showLoading = true) {
+      const container = document.getElementById("staffCards");
 
-      // Google Sheet ID and Tab Name
+      if (showLoading) {
+        container.innerHTML = "<div class='loading-text' style='grid-column: span 2;'>Data load ho raha hai...</div>";
+      }
+
       const sheetID = "1-JCKO_pVq6cg67vqTYro7Rp1OJQ8l3RxIoA4NOWzrYE";
       const sheetURL = `https://docs.google.com/spreadsheets/d/${sheetID}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(sheetName)}&_=${new Date().getTime()}`;
 
@@ -320,16 +357,12 @@
           return response.text();
         })
         .then(data => {
-          const rows = data.trim().split("\n");
-          const container = document.getElementById("staffCards");
-          container.innerHTML = "";
-
+          const rows = parseCSV(data);
+          let cardsHTML = "";
           let rankIndex = 0;
 
-          rows.slice(1).forEach((row) => {
-            const columns = parseCSVRow(row);
-
-            if (columns.length >= 1 && columns[0].trim() !== "") {
+          rows.slice(1).forEach((columns) => {
+            if (columns.length > 0 && columns[0] !== "") {
               rankIndex++;
 
               let icon = "";
@@ -346,12 +379,11 @@
                 icon = `${rankIndex}.`;
               }
 
-              // Column A = Name, Column B = Count, Column C = Unit
               const name = columns[0] || "";
-              const count = columns[1] ? columns[1] : "";
-              const unit = columns[2] ? columns[2] : "";
+              const count = columns[1] || "";
+              const unit = columns[2] || "";
 
-              container.innerHTML += `
+              cardsHTML += `
                 <div class="card ${rankClass}">
                   <div class="card-icon">${icon}</div>
                   <div class="card-title">${name}</div>
@@ -362,14 +394,11 @@
             }
           });
 
-          if (container.innerHTML === "") {
-            container.innerHTML = "<div class='loading-text' style='grid-column: span 2;'>Is sheet mein koi data nahi mila</div>";
-          }
+          container.innerHTML = cardsHTML || "<div class='loading-text' style='grid-column: span 2;'>Is sheet mein koi data nahi mila</div>";
         })
         .catch(error => {
           console.error(error);
-          document.getElementById("staffCards").innerHTML =
-            "<div class='loading-text' style='grid-column: span 2; color:red;'>Data load nahi hua. Sheet name aur permissions check karein.</div>";
+          container.innerHTML = "<div class='loading-text' style='grid-column: span 2; color:red;'>Data load nahi hua. Sheet name aur permissions check karein.</div>";
         });
     }
   </script>
