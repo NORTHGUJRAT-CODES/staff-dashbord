@@ -100,16 +100,6 @@
       opacity: 0.95;
     }
 
-    .total-badge {
-      display: inline-block;
-      margin-top: 10px;
-      background: rgba(255, 255, 255, 0.25);
-      padding: 6px 14px;
-      border-radius: 20px;
-      font-size: 14px;
-      font-weight: bold;
-    }
-
     /* DASHBOARD CONTENT */
     .dashboard-content {
       padding: 15px;
@@ -120,7 +110,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 6px;
+      gap: 8px;
       margin-bottom: 15px;
       flex-wrap: wrap;
     }
@@ -128,29 +118,28 @@
     .date-badge {
       background: #f0e6d2;
       color: #665235;
-      padding: 6px 10px;
+      padding: 6px 12px;
       border-radius: 6px;
-      font-size: 12px;
+      font-size: 13px;
       font-weight: bold;
     }
 
     .select-branch {
       background: #4a5d4e;
       color: white;
-      padding: 6px 8px;
+      padding: 6px 10px;
       border-radius: 6px;
       font-size: 12px;
       border: none;
       outline: none;
       font-weight: bold;
       cursor: pointer;
-      max-width: 190px;
     }
 
     .live-badge {
       background: #ff4d4d;
       color: white;
-      padding: 4px 8px;
+      padding: 4px 10px;
       border-radius: 20px;
       font-size: 12px;
       font-weight: bold;
@@ -247,7 +236,6 @@
         <h2>TELETHON</h2>
         <h1>MUQABLA</h1>
         <p id="branchTitle">Madrasa tul Madina Modasa</p>
-        <div class="total-badge" id="totalCount">Total: 0</div>
       </div>
 
       <!-- Dashboard Content -->
@@ -259,14 +247,7 @@
           
           <select class="select-branch" id="branchSelect" onchange="changeBranch()">
             <option value="Sheet1">Madrasa tul Madina Modasa</option>
-            <option value="Sheet2">Faizan e Shah e Alam</option>
-            <option value="Faizan e Madina Himmanagar">Faizan e Madina Himmanagar</option>
-            <option value="Faizan e Dariyai Dulha Balasinor">Faizan e Dariyai Dulha Balasinor</option>
-            <option value="Faizan e Tajdare Baghdad Bhemal">Faizan e Tajdare Baghdad Bhemal</option>
-            <option value="Madina Masjid Jamalpur">Madina Masjid Jamalpur</option>
-            <option value="Faizan e Imam Ahmed Raza Ider">Faizan e Imam Ahmed Raza Ider</option>
-            <option value="Faizan e Madina Mehsana">Faizan e Madina Mehsana</option>
-            <option value="Faizan e Ghazi Qutbuddin Himmatnagar">Faizan e Ghazi Qutbuddin Himmatnagar</option>
+            <option value="Sheet2">Faizan-e-Shah-e-Alam</option>
           </select>
 
           <span class="live-badge"><span class="live-dot"></span> Live</span>
@@ -301,7 +282,7 @@
       if (id === "Madani" && pass === "12254") {
         document.getElementById("loginBox").style.display = "none";
         document.getElementById("dashboard").style.display = "block";
-        changeBranch();
+        loadSheet("Sheet1");
       } else {
         document.getElementById("error").innerText = "ID ya Password galat hai";
       }
@@ -312,10 +293,14 @@
       const selectedSheet = select.value;
       const selectedText = select.options[select.selectedIndex].text;
       
+      // Update Subtitle
       document.getElementById("branchTitle").innerText = selectedText;
+      
+      // Load Sheet Data
       loadSheet(selectedSheet);
     }
 
+    // CSV Row Parser
     function parseCSVRow(row) {
       const matches = row.match(/(".*?"|[^",\s]+)(?=\s*,|\s*$)/g);
       if (!matches) return row.split(",");
@@ -325,6 +310,7 @@
     function loadSheet(sheetName) {
       document.getElementById("staffCards").innerHTML = "<div class='loading-text' style='grid-column: span 2;'>Data load ho raha hai...</div>";
 
+      // Google Sheet ID and Tab Name
       const sheetID = "1-JCKO_pVq6cg67vqTYro7Rp1OJQ8l3RxIoA4NOWzrYE";
       const sheetURL = `https://docs.google.com/spreadsheets/d/${sheetID}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(sheetName)}&_=${new Date().getTime()}`;
 
@@ -339,10 +325,8 @@
           container.innerHTML = "";
 
           let rankIndex = 0;
-          let totalSum = 0;
 
-          // Row 1 se hi data padhna shuru karega (slice remove kar diya hai)
-          rows.forEach((row) => {
+          rows.slice(1).forEach((row) => {
             const columns = parseCSVRow(row);
 
             if (columns.length >= 1 && columns[0].trim() !== "") {
@@ -362,15 +346,10 @@
                 icon = `${rankIndex}.`;
               }
 
+              // Column A = Name, Column B = Count, Column C = Unit
               const name = columns[0] || "";
               const count = columns[1] ? columns[1] : "";
               const unit = columns[2] ? columns[2] : "";
-
-              // Total Calculation
-              const numericCount = parseFloat(count);
-              if (!isNaN(numericCount)) {
-                totalSum += numericCount;
-              }
 
               container.innerHTML += `
                 <div class="card ${rankClass}">
@@ -383,8 +362,6 @@
             }
           });
 
-          document.getElementById("totalCount").innerText = `Total: ${totalSum}`;
-
           if (container.innerHTML === "") {
             container.innerHTML = "<div class='loading-text' style='grid-column: span 2;'>Is sheet mein koi data nahi mila</div>";
           }
@@ -392,7 +369,7 @@
         .catch(error => {
           console.error(error);
           document.getElementById("staffCards").innerHTML =
-            "<div class='loading-text' style='grid-column: span 2; color:red;'>Data load nahi hua. Google Sheet tab name check karein.</div>";
+            "<div class='loading-text' style='grid-column: span 2; color:red;'>Data load nahi hua. Sheet name aur permissions check karein.</div>";
         });
     }
   </script>
