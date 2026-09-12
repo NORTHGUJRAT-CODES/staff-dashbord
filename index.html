@@ -298,7 +298,6 @@
         document.getElementById("dashboard").style.display = "block";
         loadSheet("Sheet1");
 
-        // Har 30 sec me automatic update
         if (refreshTimer) clearInterval(refreshTimer);
         refreshTimer = setInterval(() => {
           const selectedSheet = document.getElementById("branchSelect").value;
@@ -359,53 +358,71 @@
         })
         .then(data => {
           const rows = parseCSV(data);
-          let cardsHTML = "";
-          let rankIndex = 0;
+          let itemsList = [];
+          let grandTotalRow = null;
 
+          // Process rows
           rows.slice(1).forEach((columns) => {
             if (columns.length > 0 && columns[0] !== "") {
-              rankIndex++;
-
-              let icon = "";
-              let rankClass = "";
-
-              if (rankIndex === 1) {
-                icon = "🏆";
-                rankClass = "rank-1";
-              } else if (rankIndex === 2) {
-                icon = "🥈";
-              } else if (rankIndex === 3) {
-                icon = "🥉";
-              } else {
-                icon = `${rankIndex}.`;
-              }
-
               const name = columns[0] || "";
               const count = columns[1] || "";
               const unit = columns[2] || "";
 
-              // Agar Sheet10 hai aur Row TOTAL KARKARDGI wali hai to use special full-width card banayein
-              if (name.toUpperCase().includes("TOTAL KARKARDGI")) {
-                cardsHTML += `
-                  <div class="card" style="grid-column: span 2; background: #198754; color: white; margin-top: 10px;">
-                    <div class="card-icon">👑</div>
-                    <div class="card-title" style="color: #ffffff; font-size: 18px;">${name}</div>
-                    ${count ? `<div class="card-count" style="color: #ffeac5; font-size: 24px;">${count}</div>` : ''}
-                    ${unit ? `<div class="card-unit" style="color: #e0e0e0; font-size: 14px;">Unit: ${unit}</div>` : ''}
-                  </div>
-                `;
+              // Total Row ko alag handle karein
+              if (name.toUpperCase().includes("TOTAL KARKARDGI") || name.toUpperCase() === "TOTAL") {
+                grandTotalRow = { name, count, unit };
               } else {
-                cardsHTML += `
-                  <div class="card ${rankClass}">
-                    <div class="card-icon">${icon}</div>
-                    <div class="card-title">${name}</div>
-                    ${count ? `<div class="card-count">${count}</div>` : ''}
-                    ${unit ? `<div class="card-unit">Unit: ${unit}</div>` : ''}
-                  </div>
-                `;
+                const numValue = parseFloat(count.replace(/,/g, '')) || 0;
+                itemsList.push({ name, count, unit, numValue });
               }
             }
           });
+
+          // Amount/Count ke hisab se High to Low Sort karein
+          itemsList.sort((a, b) => b.numValue - a.numValue);
+
+          let cardsHTML = "";
+          let rankIndex = 0;
+
+          // Render Sorted Cards
+          itemsList.forEach((item) => {
+            rankIndex++;
+
+            let icon = "";
+            let rankClass = "";
+
+            if (rankIndex === 1) {
+              icon = "🏆";
+              rankClass = "rank-1";
+            } else if (rankIndex === 2) {
+              icon = "🥈";
+            } else if (rankIndex === 3) {
+              icon = "🥉";
+            } else {
+              icon = `${rankIndex}.`;
+            }
+
+            cardsHTML += `
+              <div class="card ${rankClass}">
+                <div class="card-icon">${icon}</div>
+                <div class="card-title">${item.name}</div>
+                ${item.count ? `<div class="card-count">${item.count}</div>` : ''}
+                ${item.unit ? `<div class="card-unit">Unit: ${item.unit}</div>` : ''}
+              </div>
+            `;
+          });
+
+          // Agar Grand Total Row hai toh ise sabse neeche Green Card me render karein
+          if (grandTotalRow) {
+            cardsHTML += `
+              <div class="card" style="grid-column: span 2; background: #198754; color: white; margin-top: 10px;">
+                <div class="card-icon">👑</div>
+                <div class="card-title" style="color: #ffffff; font-size: 18px;">${grandTotalRow.name}</div>
+                ${grandTotalRow.count ? `<div class="card-count" style="color: #ffeac5; font-size: 24px;">${grandTotalRow.count}</div>` : ''}
+                ${grandTotalRow.unit ? `<div class="card-unit" style="color: #e0e0e0; font-size: 14px;">Unit: ${grandTotalRow.unit}</div>` : ''}
+              </div>
+            `;
+          }
 
           container.innerHTML = cardsHTML || "<div class='loading-text' style='grid-column: span 2;'>Is sheet mein koi data nahi mila</div>";
         })
