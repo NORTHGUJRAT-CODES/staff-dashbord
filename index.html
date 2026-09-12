@@ -223,7 +223,7 @@
     <!-- LOGIN BOX -->
     <div class="login-box" id="loginBox">
       <h1>Madani Staff Login</h1>
-      <input type="text" id="username" placeholder="ID (MadaniStaff / MadaniManager)">
+      <input type="text" id="username" placeholder="ID">
       <input type="password" id="password" placeholder="Password" onkeypress="handleKeyPress(event)">
       <button class="btn-login" onclick="login()">Login</button>
       <div id="error"></div>
@@ -247,7 +247,7 @@
           <span class="date-badge" id="currentDate"></span>
           
           <select class="select-branch" id="branchSelect" onchange="changeBranch()">
-            <!-- Options dynamically loaded based on Staff or Manager Login -->
+            <!-- Dynamic Options based on Login User -->
           </select>
 
           <span class="live-badge"><span class="live-dot"></span> Live</span>
@@ -276,31 +276,28 @@
     let refreshTimer = null;
     let currentUser = null;
 
-    const commonSheetID = "1-JCKO_pVq6cg67vqTYro7Rp1OJQ8l3RxIoA4NOWzrYE";
-
-    // Staff & Manager Logins Configuration
+    // Users and their Sheet Permissions
     const usersConfig = {
-      // 1. Staff Login: Sirf Apni Branch Dikhayi Degi
       "Madani": {
         pass: "12254",
         sheets: [
-          { sheetName: "Sheet1", title: "FAIZAN E MADANI MODASA", sheetId: commonSheetID }
+          { sheetName: "Sheet1", title: "FAIZAN E MADANI MODASA", sheetId: "1-JCKO_pVq6cg67vqTYro7Rp1OJQ8l3RxIoA4NOWzrYE" },
+          { sheetName: "Sheet2", title: "FAIZANE SHAHE AALAM BAPUNAGAR", sheetId: "1-JCKO_pVq6cg67vqTYro7Rp1OJQ8l3RxIoA4NOWzrYE" },
+          { sheetName: "Sheet3", title: "FAIZANE MADINA HIMMATNAGAR", sheetId: "1-JCKO_pVq6cg67vqTYro7Rp1OJQ8l3RxIoA4NOWzrYE" },
+          { sheetName: "Sheet4", title: "FAIZANE DARIYAI DULHA BALASINOR", sheetId: "1-JCKO_pVq6cg67vqTYro7Rp1OJQ8l3RxIoA4NOWzrYE" },
+          { sheetName: "Sheet5", title: "FAIZANE TAJDARE BAGHDAD BHEMAL", sheetId: "1-JCKO_pVq6cg67vqTYro7Rp1OJQ8l3RxIoA4NOWzrYE" },
+          { sheetName: "Sheet6", title: "MADINA MASJID JAMALPUR", sheetId: "1-JCKO_pVq6cg67vqTYro7Rp1OJQ8l3RxIoA4NOWzrYE" },
+          { sheetName: "Sheet7", title: "FAIZANE IMAM AHMAD RAZA IDER", sheetId: "1-JCKO_pVq6cg67vqTYro7Rp1OJQ8l3RxIoA4NOWzrYE" },
+          { sheetName: "Sheet8", title: "FAIZANE MADINA MAHESANA", sheetId: "1-JCKO_pVq6cg67vqTYro7Rp1OJQ8l3RxIoA4NOWzrYE" },
+          { sheetName: "Sheet9", title: "FAIZANE GHAZI QUTBUDDIN HIMMATNAGAR", sheetId: "1-JCKO_pVq6cg67vqTYro7Rp1OJQ8l3RxIoA4NOWzrYE" },
+          { sheetName: "Sheet10", title: "📊 TOTAL KARKARDGI (ALL BRANCHES)", sheetId: "1-JCKO_pVq6cg67vqTYro7Rp1OJQ8l3RxIoA4NOWzrYE" }
         ]
       },
-      // 2. Manager Login: Poori Google Sheet (Sabhi Branches + Total) Dikhayi Degi
-      "Nazim": {
-        pass: "1226",
+      "User2": {
+        pass: "54321", // Naya password yahan set karein
         sheets: [
-          { sheetName: "Sheet1", title: "FAIZAN E MADANI MODASA", sheetId: commonSheetID },
-          { sheetName: "Sheet2", title: "FAIZANE SHAHE AALAM BAPUNAGAR", sheetId: commonSheetID },
-          { sheetName: "Sheet3", title: "FAIZANE MADINA HIMMATNAGAR", sheetId: commonSheetID },
-          { sheetName: "Sheet4", title: "FAIZANE DARIYAI DULHA BALASINOR", sheetId: commonSheetID },
-          { sheetName: "Sheet5", title: "FAIZANE TAJDARE BAGHDAD BHEMAL", sheetId: commonSheetID },
-          { sheetName: "Sheet6", title: "MADINA MASJID JAMALPUR", sheetId: commonSheetID },
-          { sheetName: "Sheet7", title: "FAIZANE IMAM AHMAD RAZA IDER", sheetId: commonSheetID },
-          { sheetName: "Sheet8", title: "FAIZANE MADINA MAHESANA", sheetId: commonSheetID },
-          { sheetName: "Sheet9", title: "FAIZANE GHAZI QUTBUDDIN HIMMATNAGAR", sheetId: commonSheetID },
-          { sheetName: "Sheet10", title: "📊 TOTAL KARKARDGI (ALL BRANCHES)", sheetId: commonSheetID }
+          // Nayi Google Sheet ka ID yahan `sheetId` me daalein
+          { sheetName: "Sheet1", title: "NAYI BRANCH KA NAAM", sheetId: "NAYI_GOOGLE_SHEET_KA_ID_HERE" }
         ]
       }
     };
@@ -320,6 +317,7 @@
         document.getElementById("loginBox").style.display = "none";
         document.getElementById("dashboard").style.display = "block";
 
+        // Populate Dropdown for logged in user
         const select = document.getElementById("branchSelect");
         select.innerHTML = "";
         currentUser.sheets.forEach(item => {
@@ -330,8 +328,10 @@
           select.appendChild(option);
         });
 
+        // Load First Allowed Sheet
         changeBranch();
 
+        // Auto Refresh Timer
         if (refreshTimer) clearInterval(refreshTimer);
         refreshTimer = setInterval(() => {
           changeBranch(false);
@@ -355,6 +355,7 @@
       loadSheet(sheetID, selectedSheet, showLoading);
     }
 
+    // CSV Parser
     function parseCSV(text) {
       const lines = text.trim().split(/\r?\n/);
       return lines.map(line => {
@@ -412,6 +413,7 @@
             }
           });
 
+          // Sort descending by amount/count
           itemsList.sort((a, b) => b.numValue - a.numValue);
 
           let cardsHTML = "";
