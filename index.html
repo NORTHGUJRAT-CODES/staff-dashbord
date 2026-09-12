@@ -10,11 +10,11 @@
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
     }
 
     body {
-      background-color: #d6e2d5;
+      background: linear-gradient(135deg, #e0eafc, #cfdef3);
       display: flex;
       justify-content: center;
       align-items: flex-start;
@@ -25,33 +25,45 @@
     .app-container {
       width: 100%;
       max-width: 420px;
-      background: #fbf6ee;
-      border-radius: 20px;
+      background: #fbf9f5;
+      border-radius: 24px;
       overflow: hidden;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
       padding-bottom: 25px;
+      border: 1px solid rgba(255, 255, 255, 0.6);
     }
 
     /* LOGIN BOX STYLES */
     .login-box {
-      padding: 40px 20px;
+      padding: 45px 25px;
       text-align: center;
+      background: #ffffff;
     }
 
     .login-box h1 {
-      color: #198754;
+      color: #0f5132;
       margin-bottom: 25px;
       font-size: 26px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
     }
 
     input {
       width: 100%;
-      padding: 14px;
-      margin: 8px 0;
-      border: 1px solid #ccc;
-      border-radius: 10px;
-      font-size: 16px;
+      padding: 14px 16px;
+      margin: 10px 0;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 12px;
+      font-size: 15px;
       outline: none;
+      background-color: #f8fafc;
+      transition: all 0.2s ease;
+    }
+
+    input:focus {
+      border-color: #198754;
+      background-color: #ffffff;
+      box-shadow: 0 0 0 4px rgba(25, 135, 84, 0.15);
     }
 
     .btn-login {
@@ -59,56 +71,71 @@
       padding: 14px;
       margin-top: 15px;
       border: 0;
-      border-radius: 10px;
-      background: #198754;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #198754, #0f5132);
       color: white;
-      font-size: 18px;
-      font-weight: bold;
+      font-size: 17px;
+      font-weight: 700;
       cursor: pointer;
+      box-shadow: 0 4px 12px rgba(25, 135, 84, 0.3);
+      transition: transform 0.1s ease, box-shadow 0.2s ease;
+    }
+
+    .btn-login:active {
+      transform: scale(0.98);
     }
 
     #error {
-      color: #d9534f;
+      color: #dc3545;
       margin-top: 12px;
-      font-weight: bold;
+      font-weight: 600;
+      font-size: 14px;
     }
 
     /* HEADER BANNER */
     .header-banner {
-      background: linear-gradient(135deg, #a2c4c9, #7caeb6);
-      padding: 25px 15px;
+      background: linear-gradient(135deg, #0f5132, #1e7e34, #28a745);
+      padding: 28px 20px;
       text-align: center;
       color: #ffffff;
-      text-shadow: 0 1px 3px rgba(0,0,0,0.2);
+      box-shadow: 0 4px 15px rgba(15, 81, 50, 0.2);
     }
 
     .header-banner h2 {
-      font-size: 18px;
-      letter-spacing: 2px;
-      opacity: 0.9;
+      font-size: 13px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      opacity: 0.85;
+      font-weight: 700;
     }
 
     .header-banner h1 {
-      font-size: 24px;
+      font-size: 22px;
       font-weight: 800;
-      margin: 5px 0;
+      margin: 6px 0;
+      letter-spacing: -0.3px;
     }
 
     .header-banner p {
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 600;
-      opacity: 0.95;
+      background: rgba(255, 255, 255, 0.15);
+      padding: 4px 12px;
+      border-radius: 20px;
+      display: inline-block;
+      margin-top: 4px;
+      backdrop-filter: blur(5px);
     }
 
     /* DASHBOARD CONTENT */
     .dashboard-content {
-      padding: 15px;
+      padding: 16px;
     }
 
     /* GOOGLE SHEET ACTION BUTTON */
     .edit-sheet-box {
       text-align: center;
-      margin-bottom: 15px;
+      margin-bottom: 16px;
     }
 
     .btn-sheet {
@@ -117,24 +144,24 @@
       justify-content: center;
       gap: 8px;
       width: 100%;
-      padding: 12px;
-      background-color: #198754;
-      color: #ffffff;
+      padding: 12px 16px;
+      background: linear-gradient(135deg, #ffc107, #ff9800);
+      color: #333333;
       text-decoration: none;
-      font-size: 16px;
-      font-weight: bold;
-      border-radius: 10px;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-      transition: background 0.2s;
+      font-size: 15px;
+      font-weight: 700;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(255, 152, 0, 0.25);
+      transition: all 0.2s ease;
     }
 
     .btn-sheet:hover {
-      background-color: #146c43;
+      box-shadow: 0 6px 16px rgba(255, 152, 0, 0.35);
     }
 
     .success-msg {
       margin-top: 6px;
-      font-size: 13px;
+      font-size: 12px;
       color: #198754;
       font-weight: 600;
     }
@@ -145,49 +172,57 @@
       align-items: center;
       justify-content: space-between;
       gap: 8px;
-      margin-bottom: 15px;
-      flex-wrap: wrap;
+      margin-bottom: 16px;
     }
 
     .date-badge {
-      background: #f0e6d2;
-      color: #665235;
+      background: #e9ecef;
+      color: #495057;
       padding: 6px 12px;
-      border-radius: 6px;
-      font-size: 13px;
-      font-weight: bold;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 700;
     }
 
     .select-branch {
-      background: #4a5d4e;
-      color: white;
-      padding: 6px 10px;
-      border-radius: 6px;
+      flex: 1;
+      background: #212529;
+      color: #ffffff;
+      padding: 8px 12px;
+      border-radius: 8px;
       font-size: 12px;
       border: none;
       outline: none;
-      font-weight: bold;
+      font-weight: 600;
       cursor: pointer;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
     }
 
     .live-badge {
-      background: #ff4d4d;
+      background: #dc3545;
       color: white;
-      padding: 4px 10px;
+      padding: 5px 10px;
       border-radius: 20px;
-      font-size: 12px;
-      font-weight: bold;
+      font-size: 11px;
+      font-weight: 700;
       display: inline-flex;
       align-items: center;
-      gap: 5px;
+      gap: 6px;
+      box-shadow: 0 2px 6px rgba(220, 53, 69, 0.3);
     }
 
     .live-dot {
-      width: 8px;
-      height: 8px;
+      width: 6px;
+      height: 6px;
       background: white;
       border-radius: 50%;
       display: inline-block;
+      animation: blink 1.2s infinite ease-in-out;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
     }
 
     /* CARDS GRID */
@@ -198,53 +233,62 @@
     }
 
     .card {
-      background: #f3e9d8;
-      border-radius: 12px;
-      padding: 18px 10px;
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 16px 12px;
       text-align: center;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+      border: 1px solid #eaeaea;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       position: relative;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
 
     .card.rank-1 {
-      background: #ffeac5;
-      border: 1px solid #f2cf8d;
+      background: linear-gradient(180deg, #fffcf5, #fff8e7);
+      border: 1.5px solid #f6d365;
+      box-shadow: 0 6px 16px rgba(246, 211, 101, 0.25);
     }
 
     .card-icon {
-      font-size: 20px;
-      margin-bottom: 4px;
+      font-size: 22px;
+      margin-bottom: 6px;
     }
 
     .card-title {
-      font-size: 15px;
+      font-size: 14px;
       font-weight: 700;
-      color: #333;
-      margin-bottom: 4px;
+      color: #2c3e50;
+      margin-bottom: 6px;
+      line-height: 1.2;
     }
 
     .card-count {
-      font-size: 18px;
+      font-size: 20px;
       font-weight: 800;
-      color: #b35900;
+      color: #198754;
       margin-bottom: 2px;
     }
 
     .card-unit {
-      font-size: 12px;
-      color: #666;
+      font-size: 11px;
+      color: #6c757d;
       font-weight: 600;
+      background: #f1f3f5;
+      padding: 2px 8px;
+      border-radius: 10px;
+      margin-top: 4px;
     }
 
     .loading-text {
       text-align: center;
-      padding: 30px;
-      font-size: 16px;
-      color: #666;
+      padding: 40px 10px;
+      font-size: 15px;
+      color: #6c757d;
+      font-weight: 600;
     }
   </style>
 </head>
@@ -255,10 +299,10 @@
 
     <!-- LOGIN BOX -->
     <div class="login-box" id="loginBox">
-      <h1>Madani Portal Login</h1>
-      <input type="text" id="username" placeholder="ID (Manager / Staff)">
-      <input type="password" id="password" placeholder="Password" onkeypress="handleKeyPress(event)">
-      <button class="btn-login" onclick="login()">Login</button>
+      <h1>Madani Portal</h1>
+      <input type="text" id="username" placeholder="Enter ID (Manager / Staff)">
+      <input type="password" id="password" placeholder="Enter Password" onkeypress="handleKeyPress(event)">
+      <button class="btn-login" onclick="login()">Login to Dashboard</button>
       <div id="error"></div>
     </div>
 
@@ -280,7 +324,7 @@
           <a id="openSheetBtn" class="btn-sheet" href="https://docs.google.com/spreadsheets/d/1-JCKO_pVq6cg67vqTYro7Rp1OJQ8l3RxIoA4NOWzrYE/edit" target="_blank">
             ✏️ Open Google Sheet to Edit Data
           </a>
-          <div class="success-msg">Manager Dashboard Unlocked!</div>
+          <div class="success-msg">Manager Dashboard Unlocked</div>
         </div>
 
         <!-- Top Badges / Branch Selector -->
@@ -344,7 +388,6 @@
         document.getElementById("loginBox").style.display = "none";
         document.getElementById("dashboard").style.display = "block";
 
-        // Agar Manager login hua toh Sheet Button dikhao, warna hide rakho
         if (isManager) {
           document.getElementById("managerEditSection").style.display = "block";
         } else {
@@ -370,7 +413,6 @@
       
       document.getElementById("branchTitle").innerText = selectedText;
 
-      // Update Manager link for specific tab
       document.getElementById("openSheetBtn").href = `https://docs.google.com/spreadsheets/d/${sheetID}/edit#gid=${selectedSheet}`;
 
       loadSheet(selectedSheet, true);
@@ -472,11 +514,11 @@
           // Render Grand Total at bottom
           if (grandTotalRow) {
             cardsHTML += `
-              <div class="card" style="grid-column: span 2; background: #198754; color: white; margin-top: 10px;">
+              <div class="card" style="grid-column: span 2; background: linear-gradient(135deg, #0f5132, #146c43); color: white; margin-top: 10px; border: none; box-shadow: 0 6px 18px rgba(15, 81, 50, 0.3);">
                 <div class="card-icon">👑</div>
-                <div class="card-title" style="color: #ffffff; font-size: 18px;">${grandTotalRow.name}</div>
-                ${grandTotalRow.count ? `<div class="card-count" style="color: #ffeac5; font-size: 24px;">${grandTotalRow.count}</div>` : ''}
-                ${grandTotalRow.unit ? `<div class="card-unit" style="color: #e0e0e0; font-size: 14px;">Unit: ${grandTotalRow.unit}</div>` : ''}
+                <div class="card-title" style="color: #ffffff; font-size: 17px;">${grandTotalRow.name}</div>
+                ${grandTotalRow.count ? `<div class="card-count" style="color: #ffda6a; font-size: 26px;">${grandTotalRow.count}</div>` : ''}
+                ${grandTotalRow.unit ? `<div class="card-unit" style="color: #ffffff; background: rgba(255,255,255,0.2); font-size: 13px;">Unit: ${grandTotalRow.unit}</div>` : ''}
               </div>
             `;
           }
@@ -485,7 +527,7 @@
         })
         .catch(error => {
           console.error(error);
-          container.innerHTML = "<div class='loading-text' style='grid-column: span 2; color:red;'>Data load nahi hua. Sheet name aur permissions check karein.</div>";
+          container.innerHTML = "<div class='loading-text' style='grid-column: span 2; color:#dc3545;'>Data load nahi hua. Sheet name aur permissions check karein.</div>";
         });
     }
   </script>
