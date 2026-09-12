@@ -89,13 +89,13 @@
     }
 
     .header-banner h1 {
-      font-size: 26px;
+      font-size: 24px;
       font-weight: 800;
       margin: 5px 0;
     }
 
     .header-banner p {
-      font-size: 15px;
+      font-size: 14px;
       font-weight: 600;
       opacity: 0.95;
     }
@@ -103,6 +103,40 @@
     /* DASHBOARD CONTENT */
     .dashboard-content {
       padding: 15px;
+    }
+
+    /* GOOGLE SHEET ACTION BUTTON */
+    .edit-sheet-box {
+      text-align: center;
+      margin-bottom: 15px;
+    }
+
+    .btn-sheet {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      padding: 12px;
+      background-color: #198754;
+      color: #ffffff;
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      transition: background 0.2s;
+    }
+
+    .btn-sheet:hover {
+      background-color: #146c43;
+    }
+
+    .success-msg {
+      margin-top: 6px;
+      font-size: 13px;
+      color: #198754;
+      font-weight: 600;
     }
 
     /* TOP BADGES / TOOLBAR */
@@ -233,13 +267,21 @@
 
       <!-- Header Banner -->
       <div class="header-banner">
-        <h2>TELETHON</h2>
-        <h1>MUQABLA</h1>
+        <h2>TELETHON MUQABLA</h2>
+        <h1>Department Staff Live Ranking</h1>
         <p id="branchTitle">FAIZAN E MADANI MODASA</p>
       </div>
 
       <!-- Dashboard Content -->
       <div class="dashboard-content">
+
+        <!-- Google Sheet Quick Access Button -->
+        <div class="edit-sheet-box">
+          <a id="openSheetBtn" class="btn-sheet" href="https://docs.google.com/spreadsheets/d/1-JCKO_pVq6cg67vqTYro7Rp1OJQ8l3RxIoA4NOWzrYE/edit" target="_blank">
+            ✏️ Open Google Sheet to Edit Data
+          </a>
+          <div class="success-msg">Dashboard unlocked successfully!</div>
+        </div>
 
         <!-- Top Badges / Branch Selector -->
         <div class="top-bar">
@@ -273,6 +315,8 @@
   </div>
 
   <script>
+    const sheetID = "1-JCKO_pVq6cg67vqTYro7Rp1OJQ8l3RxIoA4NOWzrYE";
+
     // Set Current Date
     const today = new Date().toLocaleDateString('en-GB', {
       day: '2-digit',
@@ -314,6 +358,10 @@
       const selectedText = select.options[select.selectedIndex].text;
       
       document.getElementById("branchTitle").innerText = selectedText;
+
+      // Update Edit Button link to open the selected tab sheet
+      document.getElementById("openSheetBtn").href = `https://docs.google.com/spreadsheets/d/${sheetID}/edit#gid=${selectedSheet}`;
+
       loadSheet(selectedSheet, true);
     }
 
@@ -348,7 +396,6 @@
         container.innerHTML = "<div class='loading-text' style='grid-column: span 2;'>Data load ho raha hai...</div>";
       }
 
-      const sheetID = "1-JCKO_pVq6cg67vqTYro7Rp1OJQ8l3RxIoA4NOWzrYE";
       const sheetURL = `https://docs.google.com/spreadsheets/d/${sheetID}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(sheetName)}&_=${new Date().getTime()}`;
 
       fetch(sheetURL)
@@ -368,7 +415,6 @@
               const count = columns[1] || "";
               const unit = columns[2] || "";
 
-              // Total Row ko alag handle karein
               if (name.toUpperCase().includes("TOTAL KARKARDGI") || name.toUpperCase() === "TOTAL") {
                 grandTotalRow = { name, count, unit };
               } else {
@@ -378,7 +424,7 @@
             }
           });
 
-          // Amount/Count ke hisab se High to Low Sort karein
+          // Sort High to Low
           itemsList.sort((a, b) => b.numValue - a.numValue);
 
           let cardsHTML = "";
@@ -412,7 +458,7 @@
             `;
           });
 
-          // Agar Grand Total Row hai toh ise sabse neeche Green Card me render karein
+          // Render Grand Total at bottom
           if (grandTotalRow) {
             cardsHTML += `
               <div class="card" style="grid-column: span 2; background: #198754; color: white; margin-top: 10px;">
