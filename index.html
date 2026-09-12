@@ -233,54 +233,122 @@
     }
 
     .card {
-      background: #ffffff;
-      border-radius: 16px;
-      padding: 16px 12px;
+      border-radius: 18px;
+      padding: 14px 10px;
       text-align: center;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.03);
-      border: 1px solid #eaeaea;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
       display: flex;
       flex-direction: column;
-      justify-content: center;
+      justify-content: space-between;
       align-items: center;
       position: relative;
       transition: transform 0.2s ease, box-shadow 0.2s ease;
+      min-height: 180px;
+      border: 2px solid transparent;
+      overflow: hidden;
     }
 
-    .card.rank-1 {
-      background: linear-gradient(180deg, #fffcf5, #fff8e7);
-      border: 1.5px solid #f6d365;
-      box-shadow: 0 6px 16px rgba(246, 211, 101, 0.25);
+    /* UNIQUE 1 TO 10 CARD COLORS */
+
+    /* 1. Gold (Rank 1) */
+    .card-rank-1 {
+      background: linear-gradient(180deg, #1b5e20 0%, #a48111 20%, #fffbf0 60%);
+      border-color: #ffd700;
+    }
+
+    /* 2. Royal Blue (Rank 2) */
+    .card-rank-2 {
+      background: linear-gradient(180deg, #0d47a1 0%, #1976d2 25%, #e3f2fd 70%);
+      border-color: #42a5f5;
+    }
+
+    /* 3. Bronze / Amber (Rank 3) */
+    .card-rank-3 {
+      background: linear-gradient(180deg, #5d4037 0%, #8d6e63 25%, #efebe9 70%);
+      border-color: #bcaaa4;
+    }
+
+    /* 4. Deep Purple (Rank 4) */
+    .card-rank-4 {
+      background: linear-gradient(180deg, #4a148c 0%, #7b1fa2 25%, #f3e5f5 70%);
+      border-color: #ab47bc;
+    }
+
+    /* 5. Cyan / Dark Teal (Rank 5) */
+    .card-rank-5 {
+      background: linear-gradient(180deg, #006064 0%, #00838f 25%, #e0f7fa 70%);
+      border-color: #26c6da;
+    }
+
+    /* 6. Magenta / Magenta Pink (Rank 6) */
+    .card-rank-6 {
+      background: linear-gradient(180deg, #880e4f 0%, #ad1457 25%, #fce4ec 70%);
+      border-color: #ec407a;
+    }
+
+    /* 7. Cobalt Blue (Rank 7) */
+    .card-rank-7 {
+      background: linear-gradient(180deg, #1565c0 0%, #1e88e5 25%, #e3f2fd 70%);
+      border-color: #64b5f6;
+    }
+
+    /* 8. Dark Indigo (Rank 8) */
+    .card-rank-8 {
+      background: linear-gradient(180deg, #311b92 0%, #4527a0 25%, #ede7f6 70%);
+      border-color: #7e57c2;
+    }
+
+    /* 9. Emerald Green (Rank 9) */
+    .card-rank-9 {
+      background: linear-gradient(180deg, #1b5e20 0%, #2e7d32 25%, #e8f5e9 70%);
+      border-color: #66bb6a;
+    }
+
+    /* 10. Deep Burgundy / Maroon (Rank 10) */
+    .card-rank-10 {
+      background: linear-gradient(180deg, #3e2723 0%, #5d4037 25%, #efebe9 70%);
+      border-color: #8d6e63;
     }
 
     .card-icon {
-      font-size: 22px;
-      margin-bottom: 6px;
+      font-size: 26px;
+      margin-bottom: 4px;
     }
 
     .card-title {
-      font-size: 14px;
-      font-weight: 700;
-      color: #2c3e50;
-      margin-bottom: 6px;
-      line-height: 1.2;
-    }
-
-    .card-count {
-      font-size: 20px;
+      font-size: 13px;
       font-weight: 800;
-      color: #198754;
-      margin-bottom: 2px;
+      margin-bottom: 8px;
+      line-height: 1.2;
+      text-transform: uppercase;
+      color: #ffffff;
+      text-shadow: 0 1px 3px rgba(0,0,0,0.5);
     }
 
-    .card-unit {
+    /* GREEN PILL FOR COUNT */
+    .card-count-pill {
+      width: 100%;
+      background: linear-gradient(135deg, #1b8a3e, #0d5c26);
+      color: #ffffff;
+      font-size: 18px;
+      font-weight: 900;
+      padding: 6px 0;
+      border-radius: 20px;
+      box-shadow: inset 0 2px 4px rgba(255,255,255,0.3), 0 3px 8px rgba(0,0,0,0.2);
+      margin-bottom: 6px;
+      letter-spacing: 0.5px;
+    }
+
+    /* DARK PILL FOR UNIT */
+    .card-unit-pill {
+      width: 90%;
+      background: linear-gradient(135deg, #0d1b2a, #1b263b);
+      color: #ffffff;
       font-size: 11px;
-      color: #6c757d;
-      font-weight: 600;
-      background: #f1f3f5;
-      padding: 2px 8px;
-      border-radius: 10px;
-      margin-top: 4px;
+      font-weight: 700;
+      padding: 4px 0;
+      border-radius: 12px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
     }
 
     .loading-text {
@@ -483,30 +551,30 @@
           let cardsHTML = "";
           let rankIndex = 0;
 
-          // Render Sorted Cards
+          // Render Sorted Cards (1 to 10 unique colors)
           itemsList.forEach((item) => {
             rankIndex++;
 
             let icon = "";
-            let rankClass = "";
+            const rankNum = ((rankIndex - 1) % 10) + 1;
+            const colorClass = `card-rank-${rankNum}`;
 
             if (rankIndex === 1) {
               icon = "🏆";
-              rankClass = "rank-1";
             } else if (rankIndex === 2) {
               icon = "🥈";
             } else if (rankIndex === 3) {
               icon = "🥉";
             } else {
-              icon = `${rankIndex}.`;
+              icon = `🏅 ${rankIndex}`;
             }
 
             cardsHTML += `
-              <div class="card ${rankClass}">
+              <div class="card ${colorClass}">
                 <div class="card-icon">${icon}</div>
                 <div class="card-title">${item.name}</div>
-                ${item.count ? `<div class="card-count">${item.count}</div>` : ''}
-                ${item.unit ? `<div class="card-unit">Unit: ${item.unit}</div>` : ''}
+                ${item.count ? `<div class="card-count-pill">${item.count}</div>` : ''}
+                ${item.unit ? `<div class="card-unit-pill">Unit: ${item.unit}</div>` : ''}
               </div>
             `;
           });
@@ -517,8 +585,8 @@
               <div class="card" style="grid-column: span 2; background: linear-gradient(135deg, #0f5132, #146c43); color: white; margin-top: 10px; border: none; box-shadow: 0 6px 18px rgba(15, 81, 50, 0.3);">
                 <div class="card-icon">👑</div>
                 <div class="card-title" style="color: #ffffff; font-size: 17px;">${grandTotalRow.name}</div>
-                ${grandTotalRow.count ? `<div class="card-count" style="color: #ffda6a; font-size: 26px;">${grandTotalRow.count}</div>` : ''}
-                ${grandTotalRow.unit ? `<div class="card-unit" style="color: #ffffff; background: rgba(255,255,255,0.2); font-size: 13px;">Unit: ${grandTotalRow.unit}</div>` : ''}
+                ${grandTotalRow.count ? `<div class="card-count-pill" style="background: linear-gradient(135deg, #ffc107, #ff9800); color: #000; font-size: 24px;">${grandTotalRow.count}</div>` : ''}
+                ${grandTotalRow.unit ? `<div class="card-unit-pill" style="background: rgba(255,255,255,0.2); font-size: 13px;">Unit: ${grandTotalRow.unit}</div>` : ''}
               </div>
             `;
           }
