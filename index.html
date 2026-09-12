@@ -100,6 +100,16 @@
       opacity: 0.95;
     }
 
+    .total-badge {
+      display: inline-block;
+      margin-top: 10px;
+      background: rgba(255, 255, 255, 0.25);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: bold;
+    }
+
     /* DASHBOARD CONTENT */
     .dashboard-content {
       padding: 15px;
@@ -237,12 +247,13 @@
         <h2>TELETHON</h2>
         <h1>MUQABLA</h1>
         <p id="branchTitle">Madrasa tul Madina Modasa</p>
+        <div class="total-badge" id="totalCount">Total: 0</div>
       </div>
 
       <!-- Dashboard Content -->
       <div class="dashboard-content">
 
-        <!-- Top Badges / Branch Selector for 9 Branches -->
+        <!-- Top Badges / Branch Selector -->
         <div class="top-bar">
           <span class="date-badge" id="currentDate"></span>
           
@@ -290,8 +301,6 @@
       if (id === "Madani" && pass === "12254") {
         document.getElementById("loginBox").style.display = "none";
         document.getElementById("dashboard").style.display = "block";
-        
-        // Initial Load using current selected dropdown value
         changeBranch();
       } else {
         document.getElementById("error").innerText = "ID ya Password galat hai";
@@ -303,14 +312,10 @@
       const selectedSheet = select.value;
       const selectedText = select.options[select.selectedIndex].text;
       
-      // Banner Title Update
       document.getElementById("branchTitle").innerText = selectedText;
-      
-      // Load Sheet Data
       loadSheet(selectedSheet);
     }
 
-    // CSV Row Parser
     function parseCSVRow(row) {
       const matches = row.match(/(".*?"|[^",\s]+)(?=\s*,|\s*$)/g);
       if (!matches) return row.split(",");
@@ -321,7 +326,6 @@
       document.getElementById("staffCards").innerHTML = "<div class='loading-text' style='grid-column: span 2;'>Data load ho raha hai...</div>";
 
       const sheetID = "1-JCKO_pVq6cg67vqTYro7Rp1OJQ8l3RxIoA4NOWzrYE";
-      // Fetch URL with exact encoded sheet name
       const sheetURL = `https://docs.google.com/spreadsheets/d/${sheetID}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(sheetName)}&_=${new Date().getTime()}`;
 
       fetch(sheetURL)
@@ -335,8 +339,10 @@
           container.innerHTML = "";
 
           let rankIndex = 0;
+          let totalSum = 0;
 
-          rows.slice(1).forEach((row) => {
+          // Row 1 se hi data padhna shuru karega (slice remove kar diya hai)
+          rows.forEach((row) => {
             const columns = parseCSVRow(row);
 
             if (columns.length >= 1 && columns[0].trim() !== "") {
@@ -356,10 +362,15 @@
                 icon = `${rankIndex}.`;
               }
 
-              // Column A = Name, Column B = Count, Column C = Unit
               const name = columns[0] || "";
               const count = columns[1] ? columns[1] : "";
               const unit = columns[2] ? columns[2] : "";
+
+              // Total Calculation
+              const numericCount = parseFloat(count);
+              if (!isNaN(numericCount)) {
+                totalSum += numericCount;
+              }
 
               container.innerHTML += `
                 <div class="card ${rankClass}">
@@ -372,6 +383,8 @@
             }
           });
 
+          document.getElementById("totalCount").innerText = `Total: ${totalSum}`;
+
           if (container.innerHTML === "") {
             container.innerHTML = "<div class='loading-text' style='grid-column: span 2;'>Is sheet mein koi data nahi mila</div>";
           }
@@ -379,7 +392,7 @@
         .catch(error => {
           console.error(error);
           document.getElementById("staffCards").innerHTML =
-            "<div class='loading-text' style='grid-column: span 2; color:red;'>Data load nahi hua. Google Sheet ke niche wali Tab ka naam check karein.</div>";
+            "<div class='loading-text' style='grid-column: span 2; color:red;'>Data load nahi hua. Google Sheet tab name check karein.</div>";
         });
     }
   </script>
