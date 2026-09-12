@@ -109,6 +109,7 @@
     .top-bar {
       display: flex;
       align-items: center;
+      justify-content: space-between;
       gap: 8px;
       margin-bottom: 15px;
       flex-wrap: wrap;
@@ -123,16 +124,16 @@
       font-weight: bold;
     }
 
-    .filter-btn {
+    .select-branch {
       background: #4a5d4e;
       color: white;
-      padding: 6px 12px;
+      padding: 6px 10px;
       border-radius: 6px;
       font-size: 12px;
       border: none;
-      display: flex;
-      align-items: center;
-      gap: 5px;
+      outline: none;
+      font-weight: bold;
+      cursor: pointer;
     }
 
     .live-badge {
@@ -234,16 +235,21 @@
       <div class="header-banner">
         <h2>TELETHON</h2>
         <h1>MUQABLA</h1>
-        <p>Madrasa tul Madina Modasa</p>
+        <p id="branchTitle">Madrasa tul Madina Modasa</p>
       </div>
 
       <!-- Dashboard Content -->
       <div class="dashboard-content">
 
-        <!-- Top Badges -->
+        <!-- Top Badges / Branch Selector -->
         <div class="top-bar">
           <span class="date-badge" id="currentDate"></span>
-          <button class="filter-btn">👤 Tamam Staff</button>
+          
+          <select class="select-branch" id="branchSelect" onchange="changeBranch()">
+            <option value="Sheet1">Madrasa tul Madina Modasa</option>
+            <option value="Sheet2">Faizan-e-Shah-e-Alam</option>
+          </select>
+
           <span class="live-badge"><span class="live-dot"></span> Live</span>
         </div>
 
@@ -276,10 +282,22 @@
       if (id === "Madani" && pass === "12254") {
         document.getElementById("loginBox").style.display = "none";
         document.getElementById("dashboard").style.display = "block";
-        loadSheet();
+        loadSheet("Sheet1");
       } else {
         document.getElementById("error").innerText = "ID ya Password galat hai";
       }
+    }
+
+    function changeBranch() {
+      const select = document.getElementById("branchSelect");
+      const selectedSheet = select.value;
+      const selectedText = select.options[select.selectedIndex].text;
+      
+      // Update Subtitle
+      document.getElementById("branchTitle").innerText = selectedText;
+      
+      // Load Sheet Data
+      loadSheet(selectedSheet);
     }
 
     // CSV Row Parser
@@ -289,8 +307,12 @@
       return matches.map(val => val.replace(/^"|"$/g, '').trim());
     }
 
-    function loadSheet() {
-      const sheetURL = "https://docs.google.com/spreadsheets/d/1-JCKO_pVq6cg67vqTYro7Rp1OJQ8l3RxIoA4NOWzrYE/gviz/tq?tqx=out:csv&_=" + new Date().getTime();
+    function loadSheet(sheetName) {
+      document.getElementById("staffCards").innerHTML = "<div class='loading-text' style='grid-column: span 2;'>Data load ho raha hai...</div>";
+
+      // Google Sheet ID and Tab Name
+      const sheetID = "1-JCKO_pVq6cg67vqTYro7Rp1OJQ8l3RxIoA4NOWzrYE";
+      const sheetURL = `https://docs.google.com/spreadsheets/d/${sheetID}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(sheetName)}&_=${new Date().getTime()}`;
 
       fetch(sheetURL)
         .then(response => {
@@ -341,13 +363,13 @@
           });
 
           if (container.innerHTML === "") {
-            container.innerHTML = "<div class='loading-text' style='grid-column: span 2;'>Koi data nahi mila</div>";
+            container.innerHTML = "<div class='loading-text' style='grid-column: span 2;'>Is sheet mein koi data nahi mila</div>";
           }
         })
         .catch(error => {
           console.error(error);
           document.getElementById("staffCards").innerHTML =
-            "<div class='loading-text' style='grid-column: span 2; color:red;'>Data load nahi hua. Sheet permission check karein.</div>";
+            "<div class='loading-text' style='grid-column: span 2; color:red;'>Data load nahi hua. Sheet name aur permissions check karein.</div>";
         });
     }
   </script>
