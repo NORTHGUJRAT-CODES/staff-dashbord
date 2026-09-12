@@ -134,7 +134,7 @@
       outline: none;
       font-weight: bold;
       cursor: pointer;
-      max-width: 180px;
+      max-width: 190px;
     }
 
     .live-badge {
@@ -242,20 +242,20 @@
       <!-- Dashboard Content -->
       <div class="dashboard-content">
 
-        <!-- Top Badges / Branch Selector for 9 Sheets -->
+        <!-- Top Badges / Branch Selector for 9 Branches -->
         <div class="top-bar">
           <span class="date-badge" id="currentDate"></span>
           
           <select class="select-branch" id="branchSelect" onchange="changeBranch()">
             <option value="Sheet1">Madrasa tul Madina Modasa</option>
-            <option value="Sheet2">Faizan-e-Shah-e-Alam</option>
-            <option value="Sheet3">Branch 3</option>
-            <option value="Sheet4">Branch 4</option>
-            <option value="Sheet5">Branch 5</option>
-            <option value="Sheet6">Branch 6</option>
-            <option value="Sheet7">Branch 7</option>
-            <option value="Sheet8">Branch 8</option>
-            <option value="Sheet9">Branch 9</option>
+            <option value="Sheet2">Faizan e Shah e Alam</option>
+            <option value="Faizan e Madina Himmanagar">Faizan e Madina Himmanagar</option>
+            <option value="Faizan e Dariyai Dulha Balasinor">Faizan e Dariyai Dulha Balasinor</option>
+            <option value="Faizan e Tajdare Baghdad Bhemal">Faizan e Tajdare Baghdad Bhemal</option>
+            <option value="Madina Masjid Jamalpur">Madina Masjid Jamalpur</option>
+            <option value="Faizan e Imam Ahmed Raza Ider">Faizan e Imam Ahmed Raza Ider</option>
+            <option value="Faizan e Madina Mehsana">Faizan e Madina Mehsana</option>
+            <option value="Faizan e Ghazi Qutbuddin Himmatnagar">Faizan e Ghazi Qutbuddin Himmatnagar</option>
           </select>
 
           <span class="live-badge"><span class="live-dot"></span> Live</span>
@@ -301,10 +301,10 @@
       const selectedSheet = select.value;
       const selectedText = select.options[select.selectedIndex].text;
       
-      // Update Banner Subtitle
+      // Banner Title Update
       document.getElementById("branchTitle").innerText = selectedText;
       
-      // Load selected Sheet Data
+      // Load Sheet Data
       loadSheet(selectedSheet);
     }
 
@@ -376,7 +376,7 @@
         .catch(error => {
           console.error(error);
           document.getElementById("staffCards").innerHTML =
-            "<div class='loading-text' style='grid-column: span 2; color:red;'>Data load nahi hua. Sheet tab name check karein.</div>";
+            "<div class='loading-text' style='grid-column: span 2; color:red;'>Data load nahi hua. Google Sheet Tab name match check karein.</div>";
         });
     }
   </script>
