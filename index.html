@@ -134,7 +134,6 @@
       outline: none;
       font-weight: bold;
       cursor: pointer;
-      max-width: 220px;
     }
 
     .live-badge {
@@ -236,7 +235,7 @@
       <div class="header-banner">
         <h2>TELETHON</h2>
         <h1>MUQABLA</h1>
-        <p id="branchTitle"></p>
+        <p id="branchTitle">FAIZAN E MADANI MODASA</p>
       </div>
 
       <!-- Dashboard Content -->
@@ -247,7 +246,16 @@
           <span class="date-badge" id="currentDate"></span>
           
           <select class="select-branch" id="branchSelect" onchange="changeBranch()">
-            <!-- Dynamic Options based on Login User -->
+            <option value="Sheet1">FAIZAN E MADANI MODASA</option>
+            <option value="Sheet2">FAIZANE SHAHE AALAM BAPUNAGAR</option>
+            <option value="Sheet3">FAIZANE MADINA HIMMATNAGAR</option>
+            <option value="Sheet4">FAIZANE DARIYAI DULHA BALASINOR</option>
+            <option value="Sheet5">FAIZANE TAJDARE BAGHDAD BHEMAL</option>
+            <option value="Sheet6">MADINA MASJID JAMALPUR</option>
+            <option value="Sheet7">FAIZANE IMAM AHMAD RAZA IDER</option>
+            <option value="Sheet8">FAIZANE MADINA MAHESANA</option>
+            <option value="Sheet9">FAIZANE GHAZI QUTBUDDIN HIMMATNAGAR</option>
+            <option value="Sheet10">📊 TOTAL KARKARDGI (ALL BRANCHES)</option>
           </select>
 
           <span class="live-badge"><span class="live-dot"></span> Live</span>
@@ -274,33 +282,6 @@
     document.getElementById("currentDate").innerText = today;
 
     let refreshTimer = null;
-    let currentUser = null;
-
-    // Users and their Sheet Permissions
-    const usersConfig = {
-      "Madani": {
-        pass: "12254",
-        sheets: [
-          { sheetName: "Sheet1", title: "FAIZAN E MADANI MODASA", sheetId: "1-JCKO_pVq6cg67vqTYro7Rp1OJQ8l3RxIoA4NOWzrYE" },
-          { sheetName: "Sheet2", title: "FAIZANE SHAHE AALAM BAPUNAGAR", sheetId: "1-JCKO_pVq6cg67vqTYro7Rp1OJQ8l3RxIoA4NOWzrYE" },
-          { sheetName: "Sheet3", title: "FAIZANE MADINA HIMMATNAGAR", sheetId: "1-JCKO_pVq6cg67vqTYro7Rp1OJQ8l3RxIoA4NOWzrYE" },
-          { sheetName: "Sheet4", title: "FAIZANE DARIYAI DULHA BALASINOR", sheetId: "1-JCKO_pVq6cg67vqTYro7Rp1OJQ8l3RxIoA4NOWzrYE" },
-          { sheetName: "Sheet5", title: "FAIZANE TAJDARE BAGHDAD BHEMAL", sheetId: "1-JCKO_pVq6cg67vqTYro7Rp1OJQ8l3RxIoA4NOWzrYE" },
-          { sheetName: "Sheet6", title: "MADINA MASJID JAMALPUR", sheetId: "1-JCKO_pVq6cg67vqTYro7Rp1OJQ8l3RxIoA4NOWzrYE" },
-          { sheetName: "Sheet7", title: "FAIZANE IMAM AHMAD RAZA IDER", sheetId: "1-JCKO_pVq6cg67vqTYro7Rp1OJQ8l3RxIoA4NOWzrYE" },
-          { sheetName: "Sheet8", title: "FAIZANE MADINA MAHESANA", sheetId: "1-JCKO_pVq6cg67vqTYro7Rp1OJQ8l3RxIoA4NOWzrYE" },
-          { sheetName: "Sheet9", title: "FAIZANE GHAZI QUTBUDDIN HIMMATNAGAR", sheetId: "1-JCKO_pVq6cg67vqTYro7Rp1OJQ8l3RxIoA4NOWzrYE" },
-          { sheetName: "Sheet10", title: "📊 TOTAL KARKARDGI (ALL BRANCHES)", sheetId: "1-JCKO_pVq6cg67vqTYro7Rp1OJQ8l3RxIoA4NOWzrYE" }
-        ]
-      },
-      "User2": {
-        pass: "54321", // Naya password yahan set karein
-        sheets: [
-          // Nayi Google Sheet ka ID yahan `sheetId` me daalein
-          { sheetName: "Sheet1", title: "NAYI BRANCH KA NAAM", sheetId: "NAYI_GOOGLE_SHEET_KA_ID_HERE" }
-        ]
-      }
-    };
 
     function handleKeyPress(event) {
       if (event.key === "Enter") {
@@ -312,47 +293,28 @@
       const id = document.getElementById("username").value.trim();
       const pass = document.getElementById("password").value.trim();
 
-      if (usersConfig[id] && usersConfig[id].pass === pass) {
-        currentUser = usersConfig[id];
+      if (id === "Madani" && pass === "12254") {
         document.getElementById("loginBox").style.display = "none";
         document.getElementById("dashboard").style.display = "block";
+        loadSheet("Sheet1");
 
-        // Populate Dropdown for logged in user
-        const select = document.getElementById("branchSelect");
-        select.innerHTML = "";
-        currentUser.sheets.forEach(item => {
-          const option = document.createElement("option");
-          option.value = item.sheetName;
-          option.setAttribute("data-sheetid", item.sheetId);
-          option.text = item.title;
-          select.appendChild(option);
-        });
-
-        // Load First Allowed Sheet
-        changeBranch();
-
-        // Auto Refresh Timer
         if (refreshTimer) clearInterval(refreshTimer);
         refreshTimer = setInterval(() => {
-          changeBranch(false);
+          const selectedSheet = document.getElementById("branchSelect").value;
+          loadSheet(selectedSheet, false);
         }, 30000);
       } else {
         document.getElementById("error").innerText = "ID ya Password galat hai";
       }
     }
 
-    function changeBranch(showLoading = true) {
+    function changeBranch() {
       const select = document.getElementById("branchSelect");
-      const selectedOption = select.options[select.selectedIndex];
-      
-      if (!selectedOption) return;
-
-      const selectedSheet = selectedOption.value;
-      const sheetID = selectedOption.getAttribute("data-sheetid");
-      const selectedText = selectedOption.text;
+      const selectedSheet = select.value;
+      const selectedText = select.options[select.selectedIndex].text;
       
       document.getElementById("branchTitle").innerText = selectedText;
-      loadSheet(sheetID, selectedSheet, showLoading);
+      loadSheet(selectedSheet, true);
     }
 
     // CSV Parser
@@ -379,13 +341,14 @@
       });
     }
 
-    function loadSheet(sheetID, sheetName, showLoading = true) {
+    function loadSheet(sheetName, showLoading = true) {
       const container = document.getElementById("staffCards");
 
       if (showLoading) {
         container.innerHTML = "<div class='loading-text' style='grid-column: span 2;'>Data load ho raha hai...</div>";
       }
 
+      const sheetID = "1-JCKO_pVq6cg67vqTYro7Rp1OJQ8l3RxIoA4NOWzrYE";
       const sheetURL = `https://docs.google.com/spreadsheets/d/${sheetID}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(sheetName)}&_=${new Date().getTime()}`;
 
       fetch(sheetURL)
@@ -398,12 +361,14 @@
           let itemsList = [];
           let grandTotalRow = null;
 
+          // Process rows
           rows.slice(1).forEach((columns) => {
             if (columns.length > 0 && columns[0] !== "") {
               const name = columns[0] || "";
               const count = columns[1] || "";
               const unit = columns[2] || "";
 
+              // Total Row ko alag handle karein
               if (name.toUpperCase().includes("TOTAL KARKARDGI") || name.toUpperCase() === "TOTAL") {
                 grandTotalRow = { name, count, unit };
               } else {
@@ -413,14 +378,16 @@
             }
           });
 
-          // Sort descending by amount/count
+          // Amount/Count ke hisab se High to Low Sort karein
           itemsList.sort((a, b) => b.numValue - a.numValue);
 
           let cardsHTML = "";
           let rankIndex = 0;
 
+          // Render Sorted Cards
           itemsList.forEach((item) => {
             rankIndex++;
+
             let icon = "";
             let rankClass = "";
 
@@ -445,6 +412,7 @@
             `;
           });
 
+          // Agar Grand Total Row hai toh ise sabse neeche Green Card me render karein
           if (grandTotalRow) {
             cardsHTML += `
               <div class="card" style="grid-column: span 2; background: #198754; color: white; margin-top: 10px;">
