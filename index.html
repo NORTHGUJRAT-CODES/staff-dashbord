@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Madani Staff - Telethon Muqabla</title>
+  <title>Madrasatul Madina - Telethon Muqabla</title>
 
   <style>
     * {
@@ -14,28 +14,29 @@
     }
 
     body {
-      background: linear-gradient(135deg, #e0eafc, #cfdef3);
+      background: #0f3d2e;
       display: flex;
       justify-content: center;
       align-items: flex-start;
       min-height: 100vh;
-      padding: 15px;
+      padding: 10px;
     }
 
     .app-container {
       width: 100%;
-      max-width: 420px;
-      background: #fbf9f5;
-      border-radius: 24px;
+      max-width: 440px;
+      background: #fdfbf7;
+      border-radius: 28px;
       overflow: hidden;
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
       padding-bottom: 25px;
-      border: 1px solid rgba(255, 255, 255, 0.6);
+      border: 2px solid #d4af37;
+      position: relative;
     }
 
     /* LOGIN BOX STYLES */
     .login-box {
-      padding: 45px 25px;
+      padding: 50px 25px;
       text-align: center;
       background: #ffffff;
     }
@@ -78,7 +79,7 @@
       font-weight: 700;
       cursor: pointer;
       box-shadow: 0 4px 12px rgba(25, 135, 84, 0.3);
-      transition: transform 0.1s ease, box-shadow 0.2s ease;
+      transition: transform 0.1s ease;
     }
 
     .btn-login:active {
@@ -94,48 +95,89 @@
 
     /* HEADER BANNER */
     .header-banner {
-      background: linear-gradient(135deg, #0f5132, #1e7e34, #28a745);
-      padding: 24px 20px;
+      background: linear-gradient(180deg, #072b1f 0%, #0f5132 70%, #176842 100%);
+      padding: 24px 15px 18px;
       text-align: center;
       color: #ffffff;
-      box-shadow: 0 4px 15px rgba(15, 81, 50, 0.2);
+      border-bottom: 4px solid #d4af37;
+      position: relative;
     }
 
-    .header-banner h2 {
-      font-size: 13px;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      opacity: 0.85;
+    .header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .logo-badge {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      font-weight: 800;
+      color: #fefefe;
+      text-align: left;
+      line-height: 1.1;
+      letter-spacing: 0.5px;
+    }
+
+    .header-slogan {
+      font-style: italic;
+      font-size: 12px;
+      color: #ffd700;
+      text-align: right;
       font-weight: 700;
     }
 
-    .header-banner h1 {
-      font-size: 20px;
-      font-weight: 800;
-      margin: 6px 0;
-      letter-spacing: -0.3px;
+    .banner-title {
+      font-size: 13px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #f1f1f1;
+      font-weight: 700;
+      margin-bottom: 2px;
     }
 
-    .header-banner p {
-      font-size: 13px;
-      font-weight: 600;
-      background: rgba(255, 255, 255, 0.15);
-      padding: 4px 12px;
+    .banner-heading {
+      font-size: 22px;
+      font-weight: 900;
+      color: #ffdc60;
+      letter-spacing: -0.3px;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+    }
+
+    .banner-subtitle {
+      font-family: 'Georgia', serif;
+      font-style: italic;
+      font-size: 22px;
+      color: #ffffff;
+      margin-bottom: 12px;
+    }
+
+    .sub-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #062b1e;
+      border: 1px solid #ffd700;
+      color: #ffffff;
+      padding: 6px 16px;
       border-radius: 20px;
-      display: inline-block;
-      margin-top: 4px;
-      backdrop-filter: blur(5px);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
     }
 
     /* DASHBOARD CONTENT */
     .dashboard-content {
-      padding: 16px;
+      padding: 16px 14px;
     }
 
-    /* EDIT BUTTON */
+    /* EDIT BUTTON FOR MANAGER */
     .edit-sheet-box {
       text-align: center;
-      margin-bottom: 16px;
+      margin-bottom: 14px;
     }
 
     .btn-sheet {
@@ -148,17 +190,10 @@
       background: linear-gradient(135deg, #ffc107, #ff9800);
       color: #333333;
       text-decoration: none;
-      font-size: 15px;
-      font-weight: 700;
+      font-size: 14px;
+      font-weight: 800;
       border-radius: 12px;
       box-shadow: 0 4px 12px rgba(255, 152, 0, 0.25);
-    }
-
-    .success-msg {
-      margin-top: 6px;
-      font-size: 12px;
-      color: #198754;
-      font-weight: 600;
     }
 
     /* TOP BAR */
@@ -171,29 +206,34 @@
     }
 
     .date-badge {
-      background: #e9ecef;
-      color: #495057;
-      padding: 6px 12px;
-      border-radius: 8px;
-      font-size: 12px;
-      font-weight: 700;
+      background: #ffffff;
+      border: 1.5px solid #e0e0e0;
+      color: #333333;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
     }
 
     .live-badge {
       background: #dc3545;
       color: white;
-      padding: 5px 10px;
+      padding: 6px 14px;
       border-radius: 20px;
-      font-size: 11px;
-      font-weight: 700;
+      font-size: 12px;
+      font-weight: 800;
       display: inline-flex;
       align-items: center;
       gap: 6px;
     }
 
     .live-dot {
-      width: 6px;
-      height: 6px;
+      width: 7px;
+      height: 7px;
       background: white;
       border-radius: 50%;
       display: inline-block;
@@ -205,60 +245,135 @@
       50% { opacity: 0.3; }
     }
 
-    /* SECTION TITLE & BACK BUTTON */
-    .section-title {
-      font-size: 14px;
+    /* SECTION HEADER BANNER */
+    .section-ribbon {
+      background: #0f5132;
+      color: #ffffff;
+      text-align: center;
+      padding: 8px;
+      border-radius: 20px;
+      font-size: 13px;
       font-weight: 800;
-      color: #212529;
-      margin-bottom: 12px;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+      letter-spacing: 0.8px;
+      margin-bottom: 14px;
+      border: 1px solid #d4af37;
+      box-shadow: 0 3px 8px rgba(15, 81, 50, 0.2);
     }
 
-    .btn-back-all {
-      font-size: 12px;
-      color: #0d6efd;
-      background: #e7f1ff;
-      border: 1px solid #b6d4fe;
-      padding: 4px 10px;
-      border-radius: 8px;
-      font-weight: 700;
-      cursor: pointer;
-    }
-
-    /* BRANCH SELECTION GRID BOXES */
+    /* BRANCH GRID BOXES */
     .branch-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      margin-bottom: 10px;
+      gap: 12px;
+      margin-bottom: 12px;
     }
 
-    .branch-box {
+    .branch-card {
       background: #ffffff;
-      border: 1.5px solid #dee2e6;
-      border-radius: 14px;
-      padding: 14px 10px;
-      text-align: center;
-      font-size: 12px;
-      font-weight: 800;
-      color: #333;
+      border-radius: 16px;
+      padding: 10px 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
       cursor: pointer;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+      border-left: 5px solid #0f5132;
+      border-top: 1.5px solid #d4af37;
+      border-right: 1.5px solid #e2e8f0;
+      border-bottom: 1.5px solid #e2e8f0;
       transition: all 0.2s ease;
+      min-height: 62px;
+      position: relative;
+    }
+
+    .branch-card:active {
+      transform: scale(0.96);
+      background: #f4fbf7;
+    }
+
+    .branch-icon {
+      width: 38px;
+      height: 38px;
+      background: #0f5132;
+      border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      min-height: 60px;
-      line-height: 1.3;
+      color: #ffffff;
+      font-size: 18px;
+      flex-shrink: 0;
+      border: 1.5px solid #ffd700;
     }
 
-    .branch-box:hover, .branch-box:active {
-      transform: scale(0.97);
-      background: #f8f9fa;
+    .branch-name {
+      font-size: 11px;
+      font-weight: 800;
+      color: #1a252c;
+      line-height: 1.25;
+      flex-grow: 1;
+      text-transform: uppercase;
+    }
+
+    .branch-arrow {
+      color: #0f5132;
+      font-weight: 900;
+      font-size: 16px;
+      padding-right: 2px;
+    }
+
+    /* GRAND TOTAL BAR */
+    .grand-total-btn {
+      grid-column: span 2;
+      background: linear-gradient(135deg, #072b1f, #0f5132);
+      border: 2px solid #d4af37;
+      border-radius: 18px;
+      padding: 12px 16px;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      box-shadow: 0 6px 15px rgba(7, 43, 31, 0.3);
+      margin-top: 4px;
+    }
+
+    .grand-total-btn:active {
+      transform: scale(0.98);
+    }
+
+    .gt-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .gt-icon {
+      font-size: 24px;
+    }
+
+    .gt-text-title {
+      font-size: 14px;
+      font-weight: 900;
+      letter-spacing: 0.5px;
+      color: #ffffff;
+    }
+
+    .gt-text-sub {
+      font-size: 11px;
+      color: #ffd700;
+      font-weight: 700;
+    }
+
+    /* DETAIL VIEW SECTION */
+    .btn-back-all {
+      font-size: 12px;
+      color: #0f5132;
+      background: #e8f5e9;
+      border: 1px solid #81c784;
+      padding: 6px 12px;
+      border-radius: 10px;
+      font-weight: 800;
+      cursor: pointer;
     }
 
     /* STAFF CARDS GRID */
@@ -322,9 +437,19 @@
 
       <!-- Header Banner -->
       <div class="header-banner">
-        <h2>TELETHON MUQABLA</h2>
-        <h1>Department Staff Live Ranking</h1>
-        <p id="branchTitle">SELECT BRANCH TO VIEW DETAILS</p>
+        <div class="header-top">
+          <div class="logo-badge">
+            <span>🕌</span> MADRASATUL<br>MADINA
+          </div>
+          <div class="header-slogan">
+            Ilm Se Hi<br>Taraqqi Hai
+          </div>
+        </div>
+
+        <div class="banner-title">TELETHON MUQABLA</div>
+        <div class="banner-heading">DEPARTMENT STAFF</div>
+        <div class="banner-subtitle">Live Ranking</div>
+        <div class="sub-pill">📊 SELECT BRANCH TO VIEW DETAILS</div>
       </div>
 
       <!-- Dashboard Content -->
@@ -335,39 +460,96 @@
           <a id="openSheetBtn" class="btn-sheet" href="https://docs.google.com/spreadsheets/d/1-JCKO_pVq6cg67vqTYro7Rp1OJQ8l3RxIoA4NOWzrYE/edit" target="_blank">
             ✏️ Open Google Sheet to Edit Data
           </a>
-          <div class="success-msg">Manager Dashboard Unlocked</div>
         </div>
 
         <!-- Top Badges -->
         <div class="top-bar">
-          <span class="date-badge" id="currentDate"></span>
-          <span class="live-badge"><span class="live-dot"></span> Live</span>
+          <div class="date-badge">
+            📅 <span id="currentDate">16 Sep 2026</span>
+          </div>
+          <span class="live-badge"><span class="live-dot"></span> LIVE</span>
         </div>
 
-        <!-- BRANCHES SELECTION SECTION -->
+        <!-- BRANCHES SELECTION GRID VIEW -->
         <div id="branchSelectionSection">
-          <div class="section-title">
-            <span>Select Branch Box</span>
+          <div class="section-ribbon">
+            ❖ SELECT BRANCH BOX ❖
           </div>
 
           <div class="branch-grid">
-            <div class="branch-box" onclick="openBranch('Sheet1', 'FAIZAN E MADANI MODASA')">FAIZAN E MADANI MODASA</div>
-            <div class="branch-box" onclick="openBranch('Sheet2', 'FAIZANE SHAHE AALAM BAPUNAGAR')">FAIZANE SHAHE AALAM BAPUNAGAR</div>
-            <div class="branch-box" onclick="openBranch('Sheet3', 'FAIZANE MADINA HIMMATNAGAR')">FAIZANE MADINA HIMMATNAGAR</div>
-            <div class="branch-box" onclick="openBranch('Sheet4', 'FAIZANE DARIYAI DULHA BALASINOR')">FAIZANE DARIYAI DULHA BALASINOR</div>
-            <div class="branch-box" onclick="openBranch('Sheet5', 'FAIZANE TAJDARE BAGHDAD BHEMAL')">FAIZANE TAJDARE BAGHDAD BHEMAL</div>
-            <div class="branch-box" onclick="openBranch('Sheet6', 'MADINA MASJID JAMALPUR')">MADINA MASJID JAMALPUR</div>
-            <div class="branch-box" onclick="openBranch('Sheet7', 'FAIZANE IMAM AHMAD RAZA IDER')">FAIZANE IMAM AHMAD RAZA IDER</div>
-            <div class="branch-box" onclick="openBranch('Sheet8', 'FAIZANE MADINA MAHESANA')">FAIZANE MADINA MAHESANA</div>
-            <div class="branch-box" onclick="openBranch('Sheet9', 'FAIZANE GHAZI QUTBUDDIN HIMMATNAGAR')">FAIZANE GHAZI QUTBUDDIN HIMMATNAGAR</div>
-            <div class="branch-box" style="grid-column: span 2; background: #212529; color: #fff;" onclick="openBranch('Sheet10', '📊 TOTAL KARKARDGI (ALL BRANCHES)')">📊 TOTAL KARKARDGI (ALL BRANCHES)</div>
+            
+            <div class="branch-card" onclick="openBranch('Sheet1', 'FAIZAN E MADANI MODASA')">
+              <div class="branch-icon">🕌</div>
+              <div class="branch-name">FAIZAN E MADANI MODASA</div>
+              <div class="branch-arrow">›</div>
+            </div>
+
+            <div class="branch-card" onclick="openBranch('Sheet2', 'FAIZANE SHAHE AALAM BAPUNAGAR')">
+              <div class="branch-icon">🕌</div>
+              <div class="branch-name">FAIZANE SHAHE AALAM BAPUNAGAR</div>
+              <div class="branch-arrow">›</div>
+            </div>
+
+            <div class="branch-card" onclick="openBranch('Sheet3', 'FAIZANE MADINA HIMMATNAGAR')">
+              <div class="branch-icon">🕌</div>
+              <div class="branch-name">FAIZANE MADINA HIMMATNAGAR</div>
+              <div class="branch-arrow">›</div>
+            </div>
+
+            <div class="branch-card" onclick="openBranch('Sheet4', 'FAIZANE DARIYAI DULHA BALASINOR')">
+              <div class="branch-icon">🕌</div>
+              <div class="branch-name">FAIZANE DARIYAI DULHA BALASINOR</div>
+              <div class="branch-arrow">›</div>
+            </div>
+
+            <div class="branch-card" onclick="openBranch('Sheet5', 'FAIZANE TAJDARE BAGHDAD BHEMAL')">
+              <div class="branch-icon">🕌</div>
+              <div class="branch-name">FAIZANE TAJDARE BAGHDAD BHEMAL</div>
+              <div class="branch-arrow">›</div>
+            </div>
+
+            <div class="branch-card" onclick="openBranch('Sheet6', 'MADINA MASJID JAMALPUR')">
+              <div class="branch-icon">🕌</div>
+              <div class="branch-name">MADINA MASJID JAMALPUR</div>
+              <div class="branch-arrow">›</div>
+            </div>
+
+            <div class="branch-card" onclick="openBranch('Sheet7', 'FAIZANE IMAM AHMAD RAZA IDER')">
+              <div class="branch-icon">🕌</div>
+              <div class="branch-name">FAIZANE IMAM AHMAD RAZA IDER</div>
+              <div class="branch-arrow">›</div>
+            </div>
+
+            <div class="branch-card" onclick="openBranch('Sheet8', 'FAIZANE MADINA MAHESANA')">
+              <div class="branch-icon">🕌</div>
+              <div class="branch-name">FAIZANE MADINA MAHESANA</div>
+              <div class="branch-arrow">›</div>
+            </div>
+
+            <div class="branch-card" style="grid-column: span 2;" onclick="openBranch('Sheet9', 'FAIZANE GHAZI QUTBUDDIN HIMMATNAGAR')">
+              <div class="branch-icon">🕌</div>
+              <div class="branch-name">FAIZANE GHAZI QUTBUDDIN HIMMATNAGAR</div>
+              <div class="branch-arrow">›</div>
+            </div>
+
+            <div class="grand-total-btn" onclick="openBranch('Sheet10', 'TOTAL KARKARDGI (ALL BRANCHES)')">
+              <div class="gt-left">
+                <span class="gt-icon">📊</span>
+                <div>
+                  <div class="gt-text-title">TOTAL KARKARDGI</div>
+                  <div class="gt-text-sub">(ALL BRANCHES)</div>
+                </div>
+              </div>
+              <span style="color:#ffd700; font-size:20px;">✦</span>
+            </div>
+
           </div>
         </div>
 
-        <!-- DETAIL VIEW SECTION (DEFAULT HIDDEN) -->
+        <!-- DETAIL VIEW SECTION -->
         <div id="detailViewSection" style="display: none;">
-          <div class="section-title">
-            <span>Branch Live Details</span>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+            <h3 id="selectedBranchTitle" style="font-size:14px; font-weight:800; color:#0f5132;">BRANCH DETAILS</h3>
             <button class="btn-back-all" onclick="showAllBranches()">⬅ All Branches</button>
           </div>
 
@@ -434,11 +616,10 @@
 
     function openBranch(sheetName, titleText) {
       activeSheet = sheetName;
-      document.getElementById("branchTitle").innerText = titleText;
+      document.getElementById("selectedBranchTitle").innerText = titleText;
 
       document.getElementById("openSheetBtn").href = `https://docs.google.com/spreadsheets/d/${sheetID}/edit#gid=${sheetName}`;
 
-      // Hide All Branch Boxes & Show Details View
       document.getElementById("branchSelectionSection").style.display = "none";
       document.getElementById("detailViewSection").style.display = "block";
 
@@ -447,14 +628,10 @@
 
     function showAllBranches() {
       activeSheet = null;
-      document.getElementById("branchTitle").innerText = "SELECT BRANCH TO VIEW DETAILS";
-
-      // Show Branch Boxes & Hide Details View
       document.getElementById("branchSelectionSection").style.display = "block";
       document.getElementById("detailViewSection").style.display = "none";
     }
 
-    // CSV Parser
     function parseCSV(text) {
       const lines = text.trim().split(/\r?\n/);
       return lines.map(line => {
@@ -497,7 +674,6 @@
           let itemsList = [];
           let grandTotalRow = null;
 
-          // Process rows
           rows.slice(1).forEach((columns) => {
             if (columns.length > 0 && columns[0] !== "") {
               const name = columns[0] || "";
@@ -513,7 +689,6 @@
             }
           });
 
-          // Sort High to Low
           itemsList.sort((a, b) => b.numValue - a.numValue);
 
           let cardsHTML = "";
@@ -546,7 +721,6 @@
             `;
           });
 
-          // Render Grand Total at bottom
           if (grandTotalRow) {
             cardsHTML += `
               <div class="card" style="grid-column: span 2; background: linear-gradient(135deg, #0f5132, #146c43); color: white; margin-top: 10px; border: none; box-shadow: 0 6px 18px rgba(15, 81, 50, 0.3);">
