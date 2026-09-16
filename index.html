@@ -14,7 +14,7 @@
     }
 
     body {
-      background: #0f3d2e;
+      background: #092c21;
       display: flex;
       justify-content: center;
       align-items: flex-start;
@@ -25,7 +25,7 @@
     .app-container {
       width: 100%;
       max-width: 440px;
-      background: #fdfbf7;
+      background: #faf8f2;
       border-radius: 28px;
       overflow: hidden;
       box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
@@ -95,7 +95,7 @@
 
     /* HEADER BANNER */
     .header-banner {
-      background: linear-gradient(180deg, #072b1f 0%, #0f5132 70%, #176842 100%);
+      background: linear-gradient(180deg, #052319 0%, #0c432a 70%, #125737 100%);
       padding: 24px 15px 18px;
       text-align: center;
       color: #ffffff;
@@ -159,7 +159,7 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      background: #062b1e;
+      background: #041f16;
       border: 1px solid #ffd700;
       color: #ffffff;
       padding: 6px 16px;
@@ -171,7 +171,7 @@
 
     /* DASHBOARD CONTENT */
     .dashboard-content {
-      padding: 16px 14px;
+      padding: 16px 12px;
     }
 
     /* EDIT BUTTON FOR MANAGER */
@@ -202,12 +202,12 @@
       align-items: center;
       justify-content: space-between;
       gap: 8px;
-      margin-bottom: 16px;
+      margin-bottom: 14px;
     }
 
     .date-badge {
       background: #ffffff;
-      border: 1.5px solid #e0e0e0;
+      border: 1.5px solid #dcdcdc;
       color: #333333;
       padding: 6px 14px;
       border-radius: 20px;
@@ -220,7 +220,7 @@
     }
 
     .live-badge {
-      background: #dc3545;
+      background: #e61c24;
       color: white;
       padding: 6px 14px;
       border-radius: 20px;
@@ -247,7 +247,7 @@
 
     /* SECTION HEADER BANNER */
     .section-ribbon {
-      background: #0f5132;
+      background: #0c432a;
       color: #ffffff;
       text-align: center;
       padding: 8px;
@@ -257,7 +257,7 @@
       letter-spacing: 0.8px;
       margin-bottom: 14px;
       border: 1px solid #d4af37;
-      box-shadow: 0 3px 8px rgba(15, 81, 50, 0.2);
+      box-shadow: 0 3px 8px rgba(12, 67, 42, 0.2);
     }
 
     /* BRANCH GRID BOXES */
@@ -277,13 +277,12 @@
       gap: 8px;
       cursor: pointer;
       box-shadow: 0 4px 10px rgba(0,0,0,0.06);
-      border-left: 5px solid #0f5132;
+      border-left: 5px solid #0c432a;
       border-top: 1.5px solid #d4af37;
       border-right: 1.5px solid #e2e8f0;
       border-bottom: 1.5px solid #e2e8f0;
       transition: all 0.2s ease;
       min-height: 62px;
-      position: relative;
     }
 
     .branch-card:active {
@@ -294,7 +293,7 @@
     .branch-icon {
       width: 38px;
       height: 38px;
-      background: #0f5132;
+      background: #0c432a;
       border-radius: 50%;
       display: flex;
       align-items: center;
@@ -315,16 +314,15 @@
     }
 
     .branch-arrow {
-      color: #0f5132;
+      color: #0c432a;
       font-weight: 900;
       font-size: 16px;
-      padding-right: 2px;
     }
 
     /* GRAND TOTAL BAR */
     .grand-total-btn {
       grid-column: span 2;
-      background: linear-gradient(135deg, #072b1f, #0f5132);
+      background: linear-gradient(135deg, #052319, #0c432a);
       border: 2px solid #d4af37;
       border-radius: 18px;
       padding: 12px 16px;
@@ -333,7 +331,7 @@
       align-items: center;
       justify-content: space-between;
       cursor: pointer;
-      box-shadow: 0 6px 15px rgba(7, 43, 31, 0.3);
+      box-shadow: 0 6px 15px rgba(5, 35, 25, 0.3);
       margin-top: 4px;
     }
 
@@ -364,56 +362,164 @@
       font-weight: 700;
     }
 
-    /* DETAIL VIEW SECTION */
-    .btn-back-all {
-      font-size: 12px;
-      color: #0f5132;
-      background: #e8f5e9;
-      border: 1px solid #81c784;
-      padding: 6px 12px;
-      border-radius: 10px;
-      font-weight: 800;
-      cursor: pointer;
+    /* SELECTED BRANCH BAR IN DETAIL VIEW */
+    .selected-branch-bar {
+      background: #ffffff;
+      border: 1.5px solid #d4af37;
+      border-radius: 30px;
+      padding: 6px 8px 6px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.05);
     }
 
-    /* STAFF CARDS GRID */
+    .sb-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      overflow: hidden;
+    }
+
+    .sb-icon {
+      width: 32px;
+      height: 32px;
+      background: #0c432a;
+      color: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      flex-shrink: 0;
+      border: 1px solid #ffd700;
+    }
+
+    .sb-title {
+      font-size: 12px;
+      font-weight: 900;
+      color: #0c432a;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      text-transform: uppercase;
+    }
+
+    .btn-all-branches {
+      background: #ffffff;
+      border: 1.5px solid #146c43;
+      color: #0c432a;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      flex-shrink: 0;
+      transition: all 0.2s ease;
+    }
+
+    .btn-all-branches:active {
+      background: #0c432a;
+      color: #ffffff;
+    }
+
+    /* STAFF MATCHING DETAIL CARDS */
     .cards-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 12px;
     }
 
-    .card {
-      border-radius: 18px;
-      padding: 14px 10px;
-      text-align: center;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    .detail-card {
+      background: #ffffff;
+      border: 2px solid #dfc374;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.07);
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
       align-items: center;
+      padding-bottom: 10px;
       position: relative;
-      min-height: 180px;
-      border: 2px solid transparent;
-      overflow: hidden;
     }
 
-    /* 1 TO 10 CARD COLORS */
-    .card-rank-1 { background: linear-gradient(180deg, #1b5e20 0%, #a48111 20%, #fffbf0 60%); border-color: #ffd700; }
-    .card-rank-2 { background: linear-gradient(180deg, #0d47a1 0%, #1976d2 25%, #e3f2fd 70%); border-color: #42a5f5; }
-    .card-rank-3 { background: linear-gradient(180deg, #5d4037 0%, #8d6e63 25%, #efebe9 70%); border-color: #bcaaa4; }
-    .card-rank-4 { background: linear-gradient(180deg, #4a148c 0%, #7b1fa2 25%, #f3e5f5 70%); border-color: #ab47bc; }
-    .card-rank-5 { background: linear-gradient(180deg, #006064 0%, #00838f 25%, #e0f7fa 70%); border-color: #26c6da; }
-    .card-rank-6 { background: linear-gradient(180deg, #880e4f 0%, #ad1457 25%, #fce4ec 70%); border-color: #ec407a; }
-    .card-rank-7 { background: linear-gradient(180deg, #1565c0 0%, #1e88e5 25%, #e3f2fd 70%); border-color: #64b5f6; }
-    .card-rank-8 { background: linear-gradient(180deg, #311b92 0%, #4527a0 25%, #ede7f6 70%); border-color: #7e57c2; }
-    .card-rank-9 { background: linear-gradient(180deg, #1b5e20 0%, #2e7d32 25%, #e8f5e9 70%); border-color: #66bb6a; }
-    .card-rank-10 { background: linear-gradient(180deg, #3e2723 0%, #5d4037 25%, #efebe9 70%); border-color: #8d6e63; }
+    .card-top-bg {
+      width: 100%;
+      height: 85px;
+      padding: 10px 6px 0;
+      text-align: center;
+      color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      border-bottom-left-radius: 50% 18px;
+      border-bottom-right-radius: 50% 18px;
+      position: relative;
+      background-size: cover;
+      background-position: center;
+    }
 
-    .card-icon { font-size: 26px; margin-bottom: 4px; }
-    .card-title { font-size: 13px; font-weight: 800; margin-bottom: 8px; line-height: 1.2; text-transform: uppercase; color: #ffffff; text-shadow: 0 1px 3px rgba(0,0,0,0.5); }
-    .card-count-pill { width: 100%; background: linear-gradient(135deg, #1b8a3e, #0d5c26); color: #ffffff; font-size: 18px; font-weight: 900; padding: 6px 0; border-radius: 20px; box-shadow: inset 0 2px 4px rgba(255,255,255,0.3), 0 3px 8px rgba(0,0,0,0.2); margin-bottom: 6px; letter-spacing: 0.5px; }
-    .card-unit-pill { width: 90%; background: linear-gradient(135deg, #0d1b2a, #1b263b); color: #ffffff; font-size: 11px; font-weight: 700; padding: 4px 0; border-radius: 12px; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
+    /* DYNAMIC GRADIENTS FOR RANKS */
+    .rank-bg-1 { background: linear-gradient(180deg, #1b5e20 0%, #2e7d32 100%); }
+    .rank-bg-2 { background: linear-gradient(180deg, #1565c0 0%, #0d47a1 100%); }
+    .rank-bg-3 { background: linear-gradient(180deg, #5d4037 0%, #3e2723 100%); }
+    .rank-bg-4 { background: linear-gradient(180deg, #4a148c 0%, #311b92 100%); }
+    .rank-bg-5 { background: linear-gradient(180deg, #006064 0%, #004d40 100%); }
+    .rank-bg-6 { background: linear-gradient(180deg, #880e4f 0%, #4a148c 100%); }
+    .rank-bg-default { background: linear-gradient(180deg, #2e7d32 0%, #1b5e20 100%); }
+
+    .rank-badge-icon {
+      font-size: 26px;
+      line-height: 1;
+      margin-bottom: 4px;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+    }
+
+    .staff-name-text {
+      font-size: 13px;
+      font-weight: 900;
+      color: #1a252c;
+      text-transform: uppercase;
+      text-align: center;
+      margin: 10px 4px 8px;
+      line-height: 1.25;
+      min-height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .count-capsule {
+      width: 88%;
+      background: linear-gradient(180deg, #0f5132 0%, #07331e 100%);
+      color: #ffffff;
+      font-size: 19px;
+      font-weight: 900;
+      text-align: center;
+      padding: 6px 0;
+      border-radius: 30px;
+      border: 1.5px solid #28a745;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
+    }
+
+    .unit-capsule {
+      width: 80%;
+      background: #092c21;
+      color: #ffffff;
+      font-size: 11px;
+      font-weight: 800;
+      text-align: center;
+      padding: 4px 0;
+      border-radius: 20px;
+      border: 1px solid #d4af37;
+    }
 
     .loading-text { text-align: center; padding: 40px 10px; font-size: 15px; color: #6c757d; font-weight: 600; }
   </style>
@@ -546,17 +652,25 @@
           </div>
         </div>
 
-        <!-- DETAIL VIEW SECTION -->
+        <!-- DETAIL VIEW SECTION (MATCHING SCREENSHOT) -->
         <div id="detailViewSection" style="display: none;">
-          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
-            <h3 id="selectedBranchTitle" style="font-size:14px; font-weight:800; color:#0f5132;">BRANCH DETAILS</h3>
-            <button class="btn-back-all" onclick="showAllBranches()">⬅ All Branches</button>
+          
+          <!-- Selected Branch Header Bar -->
+          <div class="selected-branch-bar">
+            <div class="sb-left">
+              <div class="sb-icon">🕌</div>
+              <div class="sb-title" id="selectedBranchTitle">FAIZAN E MADANI MODASA</div>
+            </div>
+            <button class="btn-all-branches" onclick="showAllBranches()">
+              👥 All Branches ›
+            </button>
           </div>
 
-          <!-- Staff Cards Container -->
+          <!-- Staff Cards Grid Container -->
           <div class="cards-grid" id="staffCards">
             <div class="loading-text" style="grid-column: span 2;">Data load ho raha hai...</div>
           </div>
+
         </div>
 
       </div>
@@ -689,6 +803,7 @@
             }
           });
 
+          // High to Low Sorting
           itemsList.sort((a, b) => b.numValue - a.numValue);
 
           let cardsHTML = "";
@@ -697,37 +812,50 @@
           itemsList.forEach((item) => {
             rankIndex++;
 
-            let icon = "";
-            const rankNum = ((rankIndex - 1) % 10) + 1;
-            const colorClass = `card-rank-${rankNum}`;
+            let rankClass = "rank-bg-default";
+            let iconBadge = `🏅 ${rankIndex}`;
 
             if (rankIndex === 1) {
-              icon = "🏆";
+              rankClass = "rank-bg-1";
+              iconBadge = "🏆";
             } else if (rankIndex === 2) {
-              icon = "🥈";
+              rankClass = "rank-bg-2";
+              iconBadge = "🥈";
             } else if (rankIndex === 3) {
-              icon = "🥉";
-            } else {
-              icon = `🏅 ${rankIndex}`;
+              rankClass = "rank-bg-3";
+              iconBadge = "🥉";
+            } else if (rankIndex === 4) {
+              rankClass = "rank-bg-4";
+              iconBadge = "🎖️ 4";
+            } else if (rankIndex === 5) {
+              rankClass = "rank-bg-5";
+              iconBadge = "🎖️ 5";
+            } else if (rankIndex === 6) {
+              rankClass = "rank-bg-6";
+              iconBadge = "🎖️ 6";
             }
 
             cardsHTML += `
-              <div class="card ${colorClass}">
-                <div class="card-icon">${icon}</div>
-                <div class="card-title">${item.name}</div>
-                ${item.count ? `<div class="card-count-pill">${item.count}</div>` : ''}
-                ${item.unit ? `<div class="card-unit-pill">Unit: ${item.unit}</div>` : ''}
+              <div class="detail-card">
+                <div class="card-top-bg ${rankClass}">
+                  <div class="rank-badge-icon">${iconBadge}</div>
+                </div>
+                <div class="staff-name-text">${item.name}</div>
+                ${item.count ? `<div class="count-capsule">${item.count}</div>` : ''}
+                ${item.unit ? `<div class="unit-capsule">Unit: ${item.unit}</div>` : ''}
               </div>
             `;
           });
 
           if (grandTotalRow) {
             cardsHTML += `
-              <div class="card" style="grid-column: span 2; background: linear-gradient(135deg, #0f5132, #146c43); color: white; margin-top: 10px; border: none; box-shadow: 0 6px 18px rgba(15, 81, 50, 0.3);">
-                <div class="card-icon">👑</div>
-                <div class="card-title" style="color: #ffffff; font-size: 17px;">${grandTotalRow.name}</div>
-                ${grandTotalRow.count ? `<div class="card-count-pill" style="background: linear-gradient(135deg, #ffc107, #ff9800); color: #000; font-size: 24px;">${grandTotalRow.count}</div>` : ''}
-                ${grandTotalRow.unit ? `<div class="card-unit-pill" style="background: rgba(255,255,255,0.2); font-size: 13px;">Unit: ${grandTotalRow.unit}</div>` : ''}
+              <div class="detail-card" style="grid-column: span 2; border-color: #ffd700; background: #0c432a;">
+                <div class="card-top-bg rank-bg-1" style="height: 60px;">
+                  <div class="rank-badge-icon">👑</div>
+                </div>
+                <div class="staff-name-text" style="color: #ffffff; font-size: 16px;">${grandTotalRow.name}</div>
+                ${grandTotalRow.count ? `<div class="count-capsule" style="background: linear-gradient(180deg, #ffc107 0%, #ff9800 100%); color: #000; border-color: #ffd700;">${grandTotalRow.count}</div>` : ''}
+                ${grandTotalRow.unit ? `<div class="unit-capsule" style="background: rgba(255,255,255,0.15); font-size: 12px; color: #fff;">Unit: ${grandTotalRow.unit}</div>` : ''}
               </div>
             `;
           }
