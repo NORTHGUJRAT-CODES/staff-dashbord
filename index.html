@@ -95,7 +95,7 @@
     /* HEADER BANNER */
     .header-banner {
       background: linear-gradient(135deg, #0f5132, #1e7e34, #28a745);
-      padding: 28px 20px;
+      padding: 24px 20px;
       text-align: center;
       color: #ffffff;
       box-shadow: 0 4px 15px rgba(15, 81, 50, 0.2);
@@ -110,7 +110,7 @@
     }
 
     .header-banner h1 {
-      font-size: 22px;
+      font-size: 20px;
       font-weight: 800;
       margin: 6px 0;
       letter-spacing: -0.3px;
@@ -132,7 +132,7 @@
       padding: 16px;
     }
 
-    /* GOOGLE SHEET ACTION BUTTON */
+    /* EDIT BUTTON */
     .edit-sheet-box {
       text-align: center;
       margin-bottom: 16px;
@@ -152,11 +152,6 @@
       font-weight: 700;
       border-radius: 12px;
       box-shadow: 0 4px 12px rgba(255, 152, 0, 0.25);
-      transition: all 0.2s ease;
-    }
-
-    .btn-sheet:hover {
-      box-shadow: 0 6px 16px rgba(255, 152, 0, 0.35);
     }
 
     .success-msg {
@@ -166,7 +161,7 @@
       font-weight: 600;
     }
 
-    /* TOP BADGES / TOOLBAR */
+    /* TOP BAR */
     .top-bar {
       display: flex;
       align-items: center;
@@ -184,20 +179,6 @@
       font-weight: 700;
     }
 
-    .select-branch {
-      flex: 1;
-      background: #212529;
-      color: #ffffff;
-      padding: 8px 12px;
-      border-radius: 8px;
-      font-size: 12px;
-      border: none;
-      outline: none;
-      font-weight: 600;
-      cursor: pointer;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    }
-
     .live-badge {
       background: #dc3545;
       color: white;
@@ -208,7 +189,6 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      box-shadow: 0 2px 6px rgba(220, 53, 69, 0.3);
     }
 
     .live-dot {
@@ -225,7 +205,66 @@
       50% { opacity: 0.3; }
     }
 
-    /* CARDS GRID */
+    /* BRANCH SELECTION GRID BOXES */
+    .section-title {
+      font-size: 14px;
+      font-weight: 800;
+      color: #212529;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .branch-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .branch-box {
+      background: #ffffff;
+      border: 1.5px solid #dee2e6;
+      border-radius: 14px;
+      padding: 12px 10px;
+      text-align: center;
+      font-size: 12px;
+      font-weight: 800;
+      color: #333;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 55px;
+      line-height: 1.3;
+    }
+
+    .branch-box:active {
+      transform: scale(0.96);
+    }
+
+    .branch-box.active {
+      background: linear-gradient(135deg, #0f5132, #198754);
+      color: #ffffff;
+      border-color: #0f5132;
+      box-shadow: 0 4px 12px rgba(25, 135, 84, 0.3);
+    }
+
+    .btn-back-all {
+      font-size: 12px;
+      color: #0d6efd;
+      background: none;
+      border: none;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    /* STAFF CARDS GRID */
     .cards-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -242,122 +281,29 @@
       justify-content: space-between;
       align-items: center;
       position: relative;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
       min-height: 180px;
       border: 2px solid transparent;
       overflow: hidden;
     }
 
-    /* UNIQUE 1 TO 10 CARD COLORS */
+    /* 1 TO 10 CARD COLORS */
+    .card-rank-1 { background: linear-gradient(180deg, #1b5e20 0%, #a48111 20%, #fffbf0 60%); border-color: #ffd700; }
+    .card-rank-2 { background: linear-gradient(180deg, #0d47a1 0%, #1976d2 25%, #e3f2fd 70%); border-color: #42a5f5; }
+    .card-rank-3 { background: linear-gradient(180deg, #5d4037 0%, #8d6e63 25%, #efebe9 70%); border-color: #bcaaa4; }
+    .card-rank-4 { background: linear-gradient(180deg, #4a148c 0%, #7b1fa2 25%, #f3e5f5 70%); border-color: #ab47bc; }
+    .card-rank-5 { background: linear-gradient(180deg, #006064 0%, #00838f 25%, #e0f7fa 70%); border-color: #26c6da; }
+    .card-rank-6 { background: linear-gradient(180deg, #880e4f 0%, #ad1457 25%, #fce4ec 70%); border-color: #ec407a; }
+    .card-rank-7 { background: linear-gradient(180deg, #1565c0 0%, #1e88e5 25%, #e3f2fd 70%); border-color: #64b5f6; }
+    .card-rank-8 { background: linear-gradient(180deg, #311b92 0%, #4527a0 25%, #ede7f6 70%); border-color: #7e57c2; }
+    .card-rank-9 { background: linear-gradient(180deg, #1b5e20 0%, #2e7d32 25%, #e8f5e9 70%); border-color: #66bb6a; }
+    .card-rank-10 { background: linear-gradient(180deg, #3e2723 0%, #5d4037 25%, #efebe9 70%); border-color: #8d6e63; }
 
-    /* 1. Gold (Rank 1) */
-    .card-rank-1 {
-      background: linear-gradient(180deg, #1b5e20 0%, #a48111 20%, #fffbf0 60%);
-      border-color: #ffd700;
-    }
+    .card-icon { font-size: 26px; margin-bottom: 4px; }
+    .card-title { font-size: 13px; font-weight: 800; margin-bottom: 8px; line-height: 1.2; text-transform: uppercase; color: #ffffff; text-shadow: 0 1px 3px rgba(0,0,0,0.5); }
+    .card-count-pill { width: 100%; background: linear-gradient(135deg, #1b8a3e, #0d5c26); color: #ffffff; font-size: 18px; font-weight: 900; padding: 6px 0; border-radius: 20px; box-shadow: inset 0 2px 4px rgba(255,255,255,0.3), 0 3px 8px rgba(0,0,0,0.2); margin-bottom: 6px; letter-spacing: 0.5px; }
+    .card-unit-pill { width: 90%; background: linear-gradient(135deg, #0d1b2a, #1b263b); color: #ffffff; font-size: 11px; font-weight: 700; padding: 4px 0; border-radius: 12px; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
 
-    /* 2. Royal Blue (Rank 2) */
-    .card-rank-2 {
-      background: linear-gradient(180deg, #0d47a1 0%, #1976d2 25%, #e3f2fd 70%);
-      border-color: #42a5f5;
-    }
-
-    /* 3. Bronze / Amber (Rank 3) */
-    .card-rank-3 {
-      background: linear-gradient(180deg, #5d4037 0%, #8d6e63 25%, #efebe9 70%);
-      border-color: #bcaaa4;
-    }
-
-    /* 4. Deep Purple (Rank 4) */
-    .card-rank-4 {
-      background: linear-gradient(180deg, #4a148c 0%, #7b1fa2 25%, #f3e5f5 70%);
-      border-color: #ab47bc;
-    }
-
-    /* 5. Cyan / Dark Teal (Rank 5) */
-    .card-rank-5 {
-      background: linear-gradient(180deg, #006064 0%, #00838f 25%, #e0f7fa 70%);
-      border-color: #26c6da;
-    }
-
-    /* 6. Magenta / Magenta Pink (Rank 6) */
-    .card-rank-6 {
-      background: linear-gradient(180deg, #880e4f 0%, #ad1457 25%, #fce4ec 70%);
-      border-color: #ec407a;
-    }
-
-    /* 7. Cobalt Blue (Rank 7) */
-    .card-rank-7 {
-      background: linear-gradient(180deg, #1565c0 0%, #1e88e5 25%, #e3f2fd 70%);
-      border-color: #64b5f6;
-    }
-
-    /* 8. Dark Indigo (Rank 8) */
-    .card-rank-8 {
-      background: linear-gradient(180deg, #311b92 0%, #4527a0 25%, #ede7f6 70%);
-      border-color: #7e57c2;
-    }
-
-    /* 9. Emerald Green (Rank 9) */
-    .card-rank-9 {
-      background: linear-gradient(180deg, #1b5e20 0%, #2e7d32 25%, #e8f5e9 70%);
-      border-color: #66bb6a;
-    }
-
-    /* 10. Deep Burgundy / Maroon (Rank 10) */
-    .card-rank-10 {
-      background: linear-gradient(180deg, #3e2723 0%, #5d4037 25%, #efebe9 70%);
-      border-color: #8d6e63;
-    }
-
-    .card-icon {
-      font-size: 26px;
-      margin-bottom: 4px;
-    }
-
-    .card-title {
-      font-size: 13px;
-      font-weight: 800;
-      margin-bottom: 8px;
-      line-height: 1.2;
-      text-transform: uppercase;
-      color: #ffffff;
-      text-shadow: 0 1px 3px rgba(0,0,0,0.5);
-    }
-
-    /* GREEN PILL FOR COUNT */
-    .card-count-pill {
-      width: 100%;
-      background: linear-gradient(135deg, #1b8a3e, #0d5c26);
-      color: #ffffff;
-      font-size: 18px;
-      font-weight: 900;
-      padding: 6px 0;
-      border-radius: 20px;
-      box-shadow: inset 0 2px 4px rgba(255,255,255,0.3), 0 3px 8px rgba(0,0,0,0.2);
-      margin-bottom: 6px;
-      letter-spacing: 0.5px;
-    }
-
-    /* DARK PILL FOR UNIT */
-    .card-unit-pill {
-      width: 90%;
-      background: linear-gradient(135deg, #0d1b2a, #1b263b);
-      color: #ffffff;
-      font-size: 11px;
-      font-weight: 700;
-      padding: 4px 0;
-      border-radius: 12px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-    }
-
-    .loading-text {
-      text-align: center;
-      padding: 40px 10px;
-      font-size: 15px;
-      color: #6c757d;
-      font-weight: 600;
-    }
+    .loading-text { text-align: center; padding: 40px 10px; font-size: 15px; color: #6c757d; font-weight: 600; }
   </style>
 </head>
 
@@ -395,27 +341,34 @@
           <div class="success-msg">Manager Dashboard Unlocked</div>
         </div>
 
-        <!-- Top Badges / Branch Selector -->
+        <!-- Top Badges -->
         <div class="top-bar">
           <span class="date-badge" id="currentDate"></span>
-          
-          <select class="select-branch" id="branchSelect" onchange="changeBranch()">
-            <option value="Sheet1">FAIZAN E MADANI MODASA</option>
-            <option value="Sheet2">FAIZANE SHAHE AALAM BAPUNAGAR</option>
-            <option value="Sheet3">FAIZANE MADINA HIMMATNAGAR</option>
-            <option value="Sheet4">FAIZANE DARIYAI DULHA BALASINOR</option>
-            <option value="Sheet5">FAIZANE TAJDARE BAGHDAD BHEMAL</option>
-            <option value="Sheet6">MADINA MASJID JAMALPUR</option>
-            <option value="Sheet7">FAIZANE IMAM AHMAD RAZA IDER</option>
-            <option value="Sheet8">FAIZANE MADINA MAHESANA</option>
-            <option value="Sheet9">FAIZANE GHAZI QUTBUDDIN HIMMATNAGAR</option>
-            <option value="Sheet10">📊 TOTAL KARKARDGI (ALL BRANCHES)</option>
-          </select>
-
           <span class="live-badge"><span class="live-dot"></span> Live</span>
         </div>
 
-        <!-- Cards Container -->
+        <!-- CLICKABLE BRANCHES BOXES -->
+        <div class="section-title">
+          <span>Select Branch</span>
+        </div>
+
+        <div class="branch-grid" id="branchGrid">
+          <div class="branch-box active" onclick="selectBranch('Sheet1', 'FAIZAN E MADANI MODASA', this)">FAIZAN E MADANI MODASA</div>
+          <div class="branch-box" onclick="selectBranch('Sheet2', 'FAIZANE SHAHE AALAM BAPUNAGAR', this)">FAIZANE SHAHE AALAM BAPUNAGAR</div>
+          <div class="branch-box" onclick="selectBranch('Sheet3', 'FAIZANE MADINA HIMMATNAGAR', this)">FAIZANE MADINA HIMMATNAGAR</div>
+          <div class="branch-box" onclick="selectBranch('Sheet4', 'FAIZANE DARIYAI DULHA BALASINOR', this)">FAIZANE DARIYAI DULHA BALASINOR</div>
+          <div class="branch-box" onclick="selectBranch('Sheet5', 'FAIZANE TAJDARE BAGHDAD BHEMAL', this)">FAIZANE TAJDARE BAGHDAD BHEMAL</div>
+          <div class="branch-box" onclick="selectBranch('Sheet6', 'MADINA MASJID JAMALPUR', this)">MADINA MASJID JAMALPUR</div>
+          <div class="branch-box" onclick="selectBranch('Sheet7', 'FAIZANE IMAM AHMAD RAZA IDER', this)">FAIZANE IMAM AHMAD RAZA IDER</div>
+          <div class="branch-box" onclick="selectBranch('Sheet8', 'FAIZANE MADINA MAHESANA', this)">FAIZANE MADINA MAHESANA</div>
+          <div class="branch-box" onclick="selectBranch('Sheet9', 'FAIZANE GHAZI QUTBUDDIN HIMMATNAGAR', this)">FAIZANE GHAZI QUTBUDDIN HIMMATNAGAR</div>
+          <div class="branch-box" style="grid-column: span 2; background: #212529; color: #fff;" onclick="selectBranch('Sheet10', '📊 TOTAL KARKARDGI (ALL BRANCHES)', this)">📊 TOTAL KARKARDGI (ALL BRANCHES)</div>
+        </div>
+
+        <!-- Staff Cards Container -->
+        <div class="section-title">
+          <span>Live Ranking Data</span>
+        </div>
         <div class="cards-grid" id="staffCards">
           <div class="loading-text" style="grid-column: span 2;">Data load ho raha hai...</div>
         </div>
@@ -428,6 +381,7 @@
 
   <script>
     const sheetID = "1-JCKO_pVq6cg67vqTYro7Rp1OJQ8l3RxIoA4NOWzrYE";
+    let activeSheet = "Sheet1";
 
     // Set Current Date
     const today = new Date().toLocaleDateString('en-GB', {
@@ -466,24 +420,25 @@
 
         if (refreshTimer) clearInterval(refreshTimer);
         refreshTimer = setInterval(() => {
-          const selectedSheet = document.getElementById("branchSelect").value;
-          loadSheet(selectedSheet, false);
+          loadSheet(activeSheet, false);
         }, 30000);
       } else {
         document.getElementById("error").innerText = "ID ya Password galat hai";
       }
     }
 
-    function changeBranch() {
-      const select = document.getElementById("branchSelect");
-      const selectedSheet = select.value;
-      const selectedText = select.options[select.selectedIndex].text;
-      
-      document.getElementById("branchTitle").innerText = selectedText;
+    function selectBranch(sheetName, titleText, element) {
+      activeSheet = sheetName;
+      document.getElementById("branchTitle").innerText = titleText;
 
-      document.getElementById("openSheetBtn").href = `https://docs.google.com/spreadsheets/d/${sheetID}/edit#gid=${selectedSheet}`;
+      // Update Active class on Box
+      const boxes = document.querySelectorAll('.branch-box');
+      boxes.forEach(box => box.classList.remove('active'));
+      if (element) element.classList.add('active');
 
-      loadSheet(selectedSheet, true);
+      document.getElementById("openSheetBtn").href = `https://docs.google.com/spreadsheets/d/${sheetID}/edit#gid=${sheetName}`;
+
+      loadSheet(sheetName, true);
     }
 
     // CSV Parser
@@ -551,7 +506,6 @@
           let cardsHTML = "";
           let rankIndex = 0;
 
-          // Render Sorted Cards (1 to 10 unique colors)
           itemsList.forEach((item) => {
             rankIndex++;
 
